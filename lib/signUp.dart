@@ -48,35 +48,153 @@ class _SignUpState extends State<SignUp> {
               ],
             ),
           ),
+          SizedBox(
+            height: 30,
+          ),
           Container(
-            padding: EdgeInsets.all(50),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              boxShadow: const [
+                BoxShadow(
+                  spreadRadius: -50,
+                  color: Colors.grey,
+                  blurRadius: 10,
+                  offset: Offset(10, 20),
+                ),
+              ],
+            ),
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
             child: Form(
-              child: Material(
-                elevation: 50,
-                shadowColor: Colors.grey,
-                child: TextFormField(
-                  decoration:  InputDecoration(
-                    prefixIcon: Icon(
-                      Icons.mail,
-                      color: Colors.grey,
-                    ),
-                    hintText: 'Email',
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black, width: 0,
-                      ),
-                      borderRadius: BorderRadius.circular((28.0)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20),
-                      ),
+              //child: Material(
+              // elevation: 300,
+              // shadowColor: Colors.black,
+              child: TextFormField(
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(
+                    Icons.mail,
+                    color: Colors.grey,
+                  ),
+                  errorStyle: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13,
+                  ),
+                  prefixIconColor: Colors.grey,
+                  hintText: 'Email',
+                  hintStyle: const TextStyle(fontSize: 16, color: Colors.grey),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: const BorderSide(
+                      width: 0,
+                      style: BorderStyle.none,
                     ),
                   ),
+                  filled: true,
+                  contentPadding: const EdgeInsets.all(16),
+                  fillColor: Colors.white,
                 ),
               ),
             ),
-          )
+          ),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              boxShadow: const [
+                BoxShadow(
+                  spreadRadius: -50,
+                  color: Colors.grey,
+                  blurRadius: 10,
+                  offset: Offset(10, 20),
+                ),
+              ],
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+            child: Form(
+              child: TextFormField(
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(
+                    Icons.key,
+                    color: Colors.grey,
+                  ),
+                  errorStyle: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13,
+                  ),
+                  prefixIconColor: Colors.grey,
+                  hintText: 'Password',
+                  hintStyle: const TextStyle(fontSize: 16, color: Colors.grey),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: const BorderSide(
+                      width: 0,
+                      style: BorderStyle.none,
+                    ),
+                  ),
+                  filled: true,
+                  contentPadding: const EdgeInsets.all(16),
+                  fillColor: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              boxShadow: const [
+                BoxShadow(
+                  spreadRadius: -50,
+                  color: Colors.grey,
+                  blurRadius: 10,
+                  offset: Offset(10, 20),
+                ),
+              ],
+            ),
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+            child: Form(
+              child: TextFormField(
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(
+                    Icons.key,
+                    color: Colors.grey,
+                  ),
+                  errorStyle: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13,
+                  ),
+                  prefixIconColor: Colors.grey,
+                  hintText: 'Repeat Password',
+                  hintStyle: const TextStyle(fontSize: 16, color: Colors.grey),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: const BorderSide(
+                      width: 0,
+                      style: BorderStyle.none,
+                    ),
+                  ),
+                  filled: true,
+                  contentPadding: const EdgeInsets.all(16),
+                  fillColor: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            child: Text(
+              'Register',
+              style: TextStyle(color: Colors.white),
+            ),
+            style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 120),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                )),
+          ),
         ],
       ),
     );
