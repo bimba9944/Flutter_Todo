@@ -14,6 +14,7 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+
         children: [
           Container(
             height: MediaQuery.of(context).size.height * 0.3,
@@ -48,7 +49,7 @@ class _SignUpState extends State<SignUp> {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Container(
@@ -63,7 +64,7 @@ class _SignUpState extends State<SignUp> {
                 ),
               ],
             ),
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
             child: Form(
               //child: Material(
               // elevation: 300,
@@ -108,7 +109,7 @@ class _SignUpState extends State<SignUp> {
                 ),
               ],
             ),
-            padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
             child: Form(
               child: TextFormField(
                 decoration: InputDecoration(
@@ -150,7 +151,7 @@ class _SignUpState extends State<SignUp> {
                 ),
               ],
             ),
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
             child: Form(
               child: TextFormField(
                 decoration: InputDecoration(
@@ -180,20 +181,52 @@ class _SignUpState extends State<SignUp> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
-          ElevatedButton(
-            onPressed: () {},
-            child: Text(
-              'Register',
-              style: TextStyle(color: Colors.white),
-            ),
-            style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 120),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 50),
+            height: 45.0,
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
-                )),
+                ),
+                padding: const EdgeInsets.all(0),
+              ),
+              child: Ink(
+                decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [Colors.orangeAccent, Colors.deepOrangeAccent],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                    ),
+                    borderRadius: BorderRadius.circular(20.0)),
+                child: Container(
+                  alignment: Alignment.center,
+                  child: const Text(
+                    "Register",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text('Already a member?'),
+              TextButton(
+                onPressed: () {},
+                child: const Text('Login'),
+              ),
+            ],
           ),
         ],
       ),
