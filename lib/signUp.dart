@@ -223,7 +223,9 @@ class _SignUpState extends State<SignUp> {
             children: <Widget>[
               const Text('Already a member?'),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/LogIn');
+                },
                 child: const Text('Login'),
               ),
             ],
