@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class InputItems extends StatelessWidget {
-  //const InputItems({Key? key}) : super(key: key);
 
-  final IconData? inputIcon;
+class InputItems extends StatelessWidget {
+  final IconData inputIcon;
   final String inputHint;
+
 
   InputItems(this.inputIcon, this.inputHint);
 

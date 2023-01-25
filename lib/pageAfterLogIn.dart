@@ -29,11 +29,10 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
               ),
             ],
             indicatorColor: Colors.white,
-
           ),
         ),
         body: TabBarView(
-          children: <Widget>[
+          children: [
             Center(
               child: Text('Things todo!'),
             ),
@@ -42,6 +41,57 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
             ),
           ],
         ),
+        endDrawer: Drawer(
+          child: ListView(
+            children: [
+              const DrawerHeader(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Colors.deepOrangeAccent, Colors.orangeAccent],
+                  ),
+                ),
+                child: Text(
+                  'Todo Manager',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                ),
+              ),
+              ListTile(
+                leading: Icon(Icons.language),
+                title: Text('Change Language'),
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.4,
+                      );
+                    },
+                  );
+                },
+              ),
+              const Divider(
+                thickness: 1,
+              ),
+              const ListTile(
+                leading: Icon(Icons.brush),
+                title: Text('Change Theme'),
+              ),
+              const Divider(
+                thickness: 1,
+              ),
+              ListTile(
+                leading: Icon(Icons.logout),
+                onTap: () {
+                  Navigator.pushNamed(context, '/LogIn');
+                },
+                title: Text('Logout'),
+              ),
+            ],
+          ),
+        ),
+        endDrawerEnableOpenDragGesture: false,
       ),
     );
   }

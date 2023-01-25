@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class ButtonItem extends StatelessWidget {
-  //const ButtonItem({Key? key}) : super(key: key);
   final String buttonTxt;
 
   ButtonItem(this.buttonTxt);

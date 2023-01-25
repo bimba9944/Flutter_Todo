@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './inputItems.dart';
-import './buttonItem.dart';
+import 'package:todo/inputItems.dart';
+import 'package:todo/buttonItem.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -55,7 +55,10 @@ class _SignUpState extends State<SignUp> {
             const SizedBox(
               height: 30,
             ),
-            InputItems(Icons.mail, 'Email'),
+            InputItems(
+              Icons.mail,
+              'Email'
+            ),
             InputItems(Icons.key, 'Password'),
             InputItems(Icons.key, 'Repeat password'),
             const SizedBox(
