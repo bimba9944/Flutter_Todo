@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:todo/signUp.dart';
 import 'logIn.dart';
+import './pageAfterLogIn.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
       home: SignUp(),
       routes: {
         '/LogIn': (context) => LogIn(),
+        '/PageAfterLogIn' : (context) => PageAfterLogIn(),
       },
     );
   }

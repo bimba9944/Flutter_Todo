@@ -6,13 +6,16 @@ class ButtonItem extends StatelessWidget {
 
   ButtonItem(this.buttonTxt);
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 50),
       height: 45.0,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, '/PageAfterLogIn');
+        },
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
