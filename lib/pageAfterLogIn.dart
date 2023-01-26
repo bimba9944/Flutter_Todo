@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localization/flutter_localization.dart';
+import 'package:todo/languages.dart';
 
 class PageAfterLogIn extends StatefulWidget {
   const PageAfterLogIn({Key? key}) : super(key: key);
@@ -8,6 +10,8 @@ class PageAfterLogIn extends StatefulWidget {
 }
 
 class _PageAfterLogInState extends State<PageAfterLogIn> {
+  final FlutterLocalization _localization = FlutterLocalization.instance;
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -15,8 +19,9 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'TODO',
+          automaticallyImplyLeading: false,
+          title: Text(
+            AppLocale.title.getString(context),
           ),
           backgroundColor: Colors.deepOrangeAccent,
           bottom: const TabBar(
@@ -34,7 +39,9 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
         body: TabBarView(
           children: [
             Center(
-              child: Text('Things todo!'),
+              child: Text(
+                AppLocale.text.getString(context),
+              ),
             ),
             Center(
               child: Text('Things that are done!'),
@@ -66,6 +73,34 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
                     builder: (BuildContext context) {
                       return SizedBox(
                         height: MediaQuery.of(context).size.height * 0.4,
+                        child: Column(
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                _localization.translate('en');
+                                Navigator.pop(context);
+                              },
+                              child: const Text('English',
+                                  style: TextStyle(fontSize: 25)),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                _localization.translate('ja');
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Japanese',
+                                  style: TextStyle(fontSize: 25)),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                _localization.translate('km');
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Chinese',
+                                  style: TextStyle(fontSize: 25)),
+                            ),
+                          ],
+                        ),
                       );
                     },
                   );
