@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
-import 'package:todo/languages.dart';
+import 'package:todo/helpers/languages.dart';
 
 class PageAfterLogIn extends StatefulWidget {
   const PageAfterLogIn({Key? key}) : super(key: key);
@@ -66,7 +66,7 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
               ),
               ListTile(
                 leading: Icon(Icons.language),
-                title: Text('Change Language'),
+                title: Text(AppLocale.changeLanguage.getString(context)),
                 onTap: () {
                   showModalBottomSheet(
                     context: context,
@@ -109,9 +109,9 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
               const Divider(
                 thickness: 1,
               ),
-              const ListTile(
+              ListTile(
                 leading: Icon(Icons.brush),
-                title: Text('Change Theme'),
+                title: Text(AppLocale.changeTheme.getString(context),),
               ),
               const Divider(
                 thickness: 1,
@@ -119,9 +119,9 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
               ListTile(
                 leading: Icon(Icons.logout),
                 onTap: () {
-                  Navigator.pushNamed(context, '/LogIn');
+                  Navigator.pushReplacementNamed(context, '/LogIn');
                 },
-                title: Text('Logout'),
+                title: Text(AppLocale.logOut.getString(context)),
               ),
             ],
           ),

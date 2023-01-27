@@ -1,26 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localization/flutter_localization.dart';
+import 'package:todo/helpers/languages.dart';
 
-import 'package:todo/inputItems.dart';
-import 'package:todo/buttonItem.dart';
+import 'package:todo/widgets/buttonItem.dart';
+import 'package:todo/widgets/inputItems.dart';
 
-class SignUp extends StatefulWidget {
-  const SignUp({Key? key}) : super(key: key);
+class LogIn extends StatefulWidget {
+  const LogIn({Key? key}) : super(key: key);
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<LogIn> createState() => _LogInState();
 }
 
-class _SignUpState extends State<SignUp> {
-  late final Color color;
-
+class _LogInState extends State<LogIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Todo Manager'),
+        centerTitle: true,
+        //backgroundColor: Colors.deepOrange,
+        elevation: 0,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.center,
+                end: Alignment.bottomCenter,
+                colors: [Colors.deepOrangeAccent, Colors.deepOrangeAccent]),
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height * 0.3,
+              height: MediaQuery.of(context).size.height * 0.2,
               width: MediaQuery.of(context).size.width * 1,
               decoration: BoxDecoration(
                 color: Theme.of(context).primaryColor,
@@ -45,41 +59,18 @@ class _SignUpState extends State<SignUp> {
                     color: Colors.white,
                     size: 60,
                   ),
-                  Text(
-                    "Todo Manager",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-                  ),
                 ],
               ),
             ),
             const SizedBox(
-              height: 30,
+              height: 40,
             ),
-            InputItems(
-              Icons.mail,
-              'Email'
-            ),
-            InputItems(Icons.key, 'Password'),
-            InputItems(Icons.key, 'Repeat password'),
+            InputItems(Icons.perm_identity, AppLocale.userOrEmail.getString(context)),
+            InputItems(Icons.key, AppLocale.password.getString(context)),
             const SizedBox(
-              height: 30,
+              height: 60,
             ),
-            ButtonItem('Register'),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Text('Already a member?'),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/LogIn');
-                  },
-                  child: const Text('Login'),
-                ),
-              ],
-            ),
+            ButtonItem(AppLocale.logIn.getString(context)),
           ],
         ),
       ),
