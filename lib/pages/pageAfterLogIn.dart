@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:todo/helpers/languages.dart';
+import 'package:todo/helpers/preferencesHelper.dart';
 
 class PageAfterLogIn extends StatefulWidget {
   const PageAfterLogIn({Key? key}) : super(key: key);
@@ -11,6 +12,18 @@ class PageAfterLogIn extends StatefulWidget {
 
 class _PageAfterLogInState extends State<PageAfterLogIn> {
   final FlutterLocalization _localization = FlutterLocalization.instance;
+
+  void _changePage(){
+    Navigator.pushReplacementNamed(context, '/LogIn');
+  }
+
+
+  void _translate(String langCode,String langName){
+    _localization.translate(langCode);
+    PreferencesHelper.setLanguageCode(langCode);
+    PreferencesHelper.setLanguage(langName);
+    Navigator.pop(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,26 +89,17 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
                         child: Column(
                           children: [
                             TextButton(
-                              onPressed: () {
-                                _localization.translate('en');
-                                Navigator.pop(context);
-                              },
+                              onPressed: () => _translate('en','English'),
                               child: const Text('English',
                                   style: TextStyle(fontSize: 25)),
                             ),
                             TextButton(
-                              onPressed: () {
-                                _localization.translate('ja');
-                                Navigator.pop(context);
-                              },
+                              onPressed: () => _translate('ja','Japanese'),
                               child: const Text('Japanese',
                                   style: TextStyle(fontSize: 25)),
                             ),
                             TextButton(
-                              onPressed: () {
-                                _localization.translate('km');
-                                Navigator.pop(context);
-                              },
+                              onPressed: () => _translate('km','Chinese'),
                               child: const Text('Chinese',
                                   style: TextStyle(fontSize: 25)),
                             ),
@@ -118,9 +122,7 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
               ),
               ListTile(
                 leading: Icon(Icons.logout),
-                onTap: () {
-                  Navigator.pushReplacementNamed(context, '/LogIn');
-                },
+                onTap: _changePage,
                 title: Text(AppLocale.logOut.getString(context)),
               ),
             ],

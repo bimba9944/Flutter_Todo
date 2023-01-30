@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 
 import 'package:todo/helpers/preferencesHelper.dart';
-
 import 'package:todo/pages/signUp.dart';
 import 'package:todo/pages/logIn.dart';
 import 'package:todo/pages/pageAfterLogIn.dart';

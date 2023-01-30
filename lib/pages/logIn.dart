@@ -15,6 +15,7 @@ class LogIn extends StatefulWidget {
 class _LogInState extends State<LogIn> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Todo Manager'),
@@ -34,8 +35,8 @@ class _LogInState extends State<LogIn> {
         child: Column(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height * 0.2,
-              width: MediaQuery.of(context).size.width * 1,
+              height: size.height * 0.2,
+              width: size.width * 1,
               decoration: BoxDecoration(
                 color: Theme.of(context).primaryColor,
                 borderRadius: const BorderRadius.only(

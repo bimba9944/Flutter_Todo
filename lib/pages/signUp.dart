@@ -33,6 +33,10 @@ class _SignUpState extends State<SignUp> {
     setState(() {});
   }
 
+  void _changePage(){
+    Navigator.pushNamed(context, '/LogIn');
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -88,9 +92,7 @@ class _SignUpState extends State<SignUp> {
               children: <Widget>[
                 Text(AppLocale.alreadyAMember.getString(context)),
                 TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/LogIn');
-                  },
+                  onPressed: _changePage,
                   child: Text(AppLocale.logIn.getString(context)),
                 ),
               ],
