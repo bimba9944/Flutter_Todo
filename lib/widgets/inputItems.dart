@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo/helpers/colorHelper.dart';
 
 
 class InputItems extends StatelessWidget {
@@ -13,10 +14,10 @@ class InputItems extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(50),
-        boxShadow: const [
+        boxShadow:[
           BoxShadow(
             spreadRadius: -50,
-            color: Colors.grey,
+            color: ColorHelper.input.inputShadow,
             blurRadius: 10,
             offset: Offset(10, 20),
           ),
@@ -28,16 +29,15 @@ class InputItems extends StatelessWidget {
           decoration: InputDecoration(
             prefixIcon: Icon(
               inputIcon,
-              color: Colors.grey,
+              color: ColorHelper.input.inputIcon,
             ),
             errorStyle: TextStyle(
               color: Theme.of(context).primaryColor,
               fontWeight: FontWeight.bold,
               fontSize: 13,
             ),
-            prefixIconColor: Colors.grey,
             hintText: inputHint,
-            hintStyle: const TextStyle(fontSize: 16, color: Colors.grey),
+            hintStyle:  TextStyle(fontSize: 16, color: ColorHelper.input.inputHint),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30),
               borderSide: const BorderSide(
@@ -47,7 +47,7 @@ class InputItems extends StatelessWidget {
             ),
             filled: true,
             contentPadding: const EdgeInsets.all(16),
-            fillColor: Colors.white,
+            fillColor: ColorHelper.input.fillColor,
           ),
         ),
       ),

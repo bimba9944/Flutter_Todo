@@ -7,6 +7,7 @@ import 'package:todo/helpers/preferencesHelper.dart';
 import 'package:todo/models/language.dart';
 import 'package:todo/widgets/inputItems.dart';
 import 'package:todo/widgets/buttonItem.dart';
+import 'package:todo/helpers/colorHelper.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -48,29 +49,28 @@ class _SignUpState extends State<SignUp> {
               height: size.height * 0.3,
               width: size.width * 1,
               decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(60),
                 ),
-                gradient: const LinearGradient(
+                gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.deepOrangeAccent,
-                    Colors.orangeAccent,
+                    ColorHelper.container.signUpContainer1,
+                    ColorHelper.container.signUpContainer2,
                   ],
                 ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const <Widget>[
+                children:<Widget>[
                   Icon(
                     Icons.ac_unit,
-                    color: Colors.white,
+                    color: ColorHelper.container.signUpContainerIcon,
                     size: 60,
                   ),
-                  Text(
+                  const Text(
                     "Todo Manager",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                   ),
@@ -99,7 +99,7 @@ class _SignUpState extends State<SignUp> {
             ),
             DropdownButton<Language>(
               borderRadius: BorderRadius.circular(10),
-              underline: Container(color: Colors.orangeAccent, height: 3),
+              underline: Container(color: ColorHelper.dropDown.underLine, height: 3),
               hint: Text(dropdownValue!.languageName),
               key: UniqueKey(),
               icon: const Icon(Icons.language),

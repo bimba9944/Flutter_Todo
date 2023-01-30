@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:todo/helpers/colorHelper.dart';
 
 class ButtonItem extends StatelessWidget {
   final String buttonTxt;
 
   ButtonItem(this.buttonTxt);
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +24,8 @@ class ButtonItem extends StatelessWidget {
         ),
         child: Ink(
           decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [Colors.orangeAccent, Colors.deepOrangeAccent],
+              gradient:LinearGradient(
+                colors: [ColorHelper.button.buttonColor1,ColorHelper.button.buttonColor2],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -38,7 +36,7 @@ class ButtonItem extends StatelessWidget {
               buttonTxt,
               textAlign: TextAlign.center,
               style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  TextStyle(color: ColorHelper.button.buttonText, fontWeight: FontWeight.bold),
             ),
           ),
         ),

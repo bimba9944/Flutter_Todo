@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
-import 'package:todo/helpers/languages.dart';
 
+import 'package:todo/helpers/languages.dart';
 import 'package:todo/widgets/buttonItem.dart';
 import 'package:todo/widgets/inputItems.dart';
+import 'package:todo/helpers/colorHelper.dart';
 
 class LogIn extends StatefulWidget {
   const LogIn({Key? key}) : super(key: key);
@@ -20,14 +21,13 @@ class _LogInState extends State<LogIn> {
       appBar: AppBar(
         title: const Text('Todo Manager'),
         centerTitle: true,
-        //backgroundColor: Colors.deepOrange,
         elevation: 0,
         flexibleSpace: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.center,
                 end: Alignment.bottomCenter,
-                colors: [Colors.deepOrangeAccent, Colors.deepOrangeAccent]),
+                colors: [ColorHelper.appBar.appBar1, ColorHelper.appBar.appBar1]),
           ),
         ),
       ),
@@ -38,26 +38,25 @@ class _LogInState extends State<LogIn> {
               height: size.height * 0.2,
               width: size.width * 1,
               decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(60),
                 ),
-                gradient: const LinearGradient(
+                gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.deepOrangeAccent,
-                    Colors.orangeAccent,
+                    ColorHelper.container.logInContainer1,
+                    ColorHelper.container.logInContainer2,
                   ],
                 ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const <Widget>[
+                children: <Widget>[
                   Icon(
                     Icons.ac_unit,
-                    color: Colors.white,
+                    color: ColorHelper.container.logInContainerIcon,
                     size: 60,
                   ),
                 ],

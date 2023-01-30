@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
+import 'package:todo/helpers/colorHelper.dart';
 import 'package:todo/helpers/languages.dart';
 import 'package:todo/helpers/preferencesHelper.dart';
 
@@ -25,8 +26,10 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
     Navigator.pop(context);
   }
 
+
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return DefaultTabController(
       initialIndex: 0,
       length: 2,
@@ -36,9 +39,9 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
           title: Text(
             AppLocale.title.getString(context),
           ),
-          backgroundColor: Colors.deepOrangeAccent,
-          bottom: const TabBar(
-            tabs: <Widget>[
+          backgroundColor: ColorHelper.appBar.appBarPageAfterLogIn,
+          bottom:TabBar(
+            tabs: const <Widget>[
               Tab(
                 icon: Icon(Icons.work),
               ),
@@ -46,7 +49,7 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
                 icon: Icon(Icons.done),
               ),
             ],
-            indicatorColor: Colors.white,
+            indicatorColor: ColorHelper.appBar.appBarIndicatorLine,
           ),
         ),
         body: TabBarView(
@@ -64,12 +67,12 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
         endDrawer: Drawer(
           child: ListView(
             children: [
-              const DrawerHeader(
+              DrawerHeader(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Colors.deepOrangeAccent, Colors.orangeAccent],
+                    colors: [ColorHelper.drawer.header1,ColorHelper.drawer.header2],
                   ),
                 ),
                 child: Text(
@@ -85,7 +88,7 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
                     context: context,
                     builder: (BuildContext context) {
                       return SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.4,
+                        height: size.height * 0.4,
                         child: Column(
                           children: [
                             TextButton(
