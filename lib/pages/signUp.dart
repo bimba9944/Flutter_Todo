@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
+import 'package:todo/helpers/iconHelper.dart';
 
 import 'package:todo/helpers/languageHelper.dart';
 import 'package:todo/helpers/languages.dart';
@@ -34,7 +35,7 @@ class _SignUpState extends State<SignUp> {
     setState(() {});
   }
 
-  void _changePage(){
+  void _changePage() {
     Navigator.pushNamed(context, '/LogIn');
   }
 
@@ -64,9 +65,9 @@ class _SignUpState extends State<SignUp> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children:<Widget>[
+                children: <Widget>[
                   Icon(
-                    Icons.ac_unit,
+                    IconHelper.container.signUpContainerIcon,
                     color: ColorHelper.container.signUpContainerIcon,
                     size: 60,
                   ),
@@ -78,12 +79,9 @@ class _SignUpState extends State<SignUp> {
               ),
             ),
             const SizedBox(height: 30),
-            InputItems(
-              Icons.mail,
-              AppLocale.email.getString(context),
-            ),
-            InputItems(Icons.key, AppLocale.password.getString(context)),
-            InputItems(Icons.key, AppLocale.repeatPassword.getString(context)),
+            InputItems(IconHelper.input.inputIconEmail, AppLocale.email.getString(context)),
+            InputItems(IconHelper.input.inputIconPassword, AppLocale.password.getString(context)),
+            InputItems(IconHelper.input.inputIconPassword, AppLocale.repeatPassword.getString(context)),
             const SizedBox(height: 30),
             ButtonItem(AppLocale.register.getString(context)),
             const SizedBox(height: 10),
@@ -102,7 +100,7 @@ class _SignUpState extends State<SignUp> {
               underline: Container(color: ColorHelper.dropDown.underLine, height: 3),
               hint: Text(dropdownValue!.languageName),
               key: UniqueKey(),
-              icon: const Icon(Icons.language),
+              icon: Icon(IconHelper.dropdown.dropdownIcon),
               items: listOfLanguages.map<DropdownMenuItem<Language>>((Language language) {
                 return DropdownMenuItem(value: language, child: Text(language.languageName));
               }).toList(),

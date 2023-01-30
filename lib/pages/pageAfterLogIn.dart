@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:todo/helpers/colorHelper.dart';
+import 'package:todo/helpers/iconHelper.dart';
 import 'package:todo/helpers/languages.dart';
 import 'package:todo/helpers/preferencesHelper.dart';
 
@@ -41,12 +42,12 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
           ),
           backgroundColor: ColorHelper.appBar.appBarPageAfterLogIn,
           bottom:TabBar(
-            tabs: const <Widget>[
+            tabs:  <Widget>[
               Tab(
-                icon: Icon(Icons.work),
+                icon: Icon(IconHelper.tabBar.unFinishedTasks),
               ),
               Tab(
-                icon: Icon(Icons.done),
+                icon: Icon(IconHelper.tabBar.finished),
               ),
             ],
             indicatorColor: ColorHelper.appBar.appBarIndicatorLine,
@@ -81,7 +82,7 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
                 ),
               ),
               ListTile(
-                leading: Icon(Icons.language),
+                leading: Icon(IconHelper.drawer.changeLanguage),
                 title: Text(AppLocale.changeLanguage.getString(context)),
                 onTap: () {
                   showModalBottomSheet(
@@ -117,14 +118,14 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
                 thickness: 1,
               ),
               ListTile(
-                leading: Icon(Icons.brush),
+                leading: Icon(IconHelper.drawer.changeTheme),
                 title: Text(AppLocale.changeTheme.getString(context),),
               ),
               const Divider(
                 thickness: 1,
               ),
               ListTile(
-                leading: Icon(Icons.logout),
+                leading: Icon(IconHelper.drawer.logOut),
                 onTap: _changePage,
                 title: Text(AppLocale.logOut.getString(context)),
               ),

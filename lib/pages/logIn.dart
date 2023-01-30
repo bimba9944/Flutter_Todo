@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
+import 'package:todo/helpers/iconHelper.dart';
 
 import 'package:todo/helpers/languages.dart';
 import 'package:todo/widgets/buttonItem.dart';
@@ -55,7 +56,7 @@ class _LogInState extends State<LogIn> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Icon(
-                    Icons.ac_unit,
+                    IconHelper.container.logInContainerIcon,
                     color: ColorHelper.container.logInContainerIcon,
                     size: 60,
                   ),
@@ -65,8 +66,8 @@ class _LogInState extends State<LogIn> {
             const SizedBox(
               height: 40,
             ),
-            InputItems(Icons.perm_identity, AppLocale.userOrEmail.getString(context)),
-            InputItems(Icons.key, AppLocale.password.getString(context)),
+            InputItems(IconHelper.input.inputIconUser, AppLocale.userOrEmail.getString(context)),
+            InputItems(IconHelper.input.inputIconPassword, AppLocale.password.getString(context)),
             const SizedBox(
               height: 60,
             ),
