@@ -40,17 +40,17 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
           title: Text(
             AppLocale.title.getString(context),
           ),
-          backgroundColor: ColorHelper.appBar.appBarPageAfterLogIn,
+          backgroundColor: ColorHelper.appBarPageAfterLogIn,
           bottom:TabBar(
             tabs:  <Widget>[
               Tab(
-                icon: Icon(IconHelper.tabBar.unFinishedTasks),
+                icon: Icon(IconHelper.unFinishedTasks),
               ),
               Tab(
-                icon: Icon(IconHelper.tabBar.finished),
+                icon: Icon(IconHelper.finished),
               ),
             ],
-            indicatorColor: ColorHelper.appBar.appBarIndicatorLine,
+            indicatorColor: ColorHelper.appBarIndicatorLine,
           ),
         ),
         body: TabBarView(
@@ -73,7 +73,7 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [ColorHelper.drawer.header1,ColorHelper.drawer.header2],
+                    colors: [ColorHelper.header1,ColorHelper.header2],
                   ),
                 ),
                 child: Text(
@@ -82,7 +82,7 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
                 ),
               ),
               ListTile(
-                leading: Icon(IconHelper.drawer.changeLanguage),
+                leading: Icon(IconHelper.changeLanguage),
                 title: Text(AppLocale.changeLanguage.getString(context)),
                 onTap: () {
                   showModalBottomSheet(
@@ -118,14 +118,14 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
                 thickness: 1,
               ),
               ListTile(
-                leading: Icon(IconHelper.drawer.changeTheme),
+                leading: Icon(IconHelper.changeTheme),
                 title: Text(AppLocale.changeTheme.getString(context),),
               ),
               const Divider(
                 thickness: 1,
               ),
               ListTile(
-                leading: Icon(IconHelper.drawer.logOut),
+                leading: Icon(IconHelper.logOut),
                 onTap: _changePage,
                 title: Text(AppLocale.logOut.getString(context)),
               ),

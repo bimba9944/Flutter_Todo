@@ -3,19 +3,18 @@ import 'package:todo/helpers/colorHelper.dart';
 
 class ButtonItem extends StatelessWidget {
   final String buttonTxt;
+  final Function onPressed;
 
-  ButtonItem(this.buttonTxt);
+  const ButtonItem({super.key, required this.buttonTxt,required this.onPressed,});
 
   @override
   Widget build(BuildContext context) {
-    void changePage(){
-      Navigator.pushNamed(context, '/PageAfterLogIn');
-    }
+ 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 50),
       height: 45.0,
       child: ElevatedButton(
-        onPressed: changePage,
+        onPressed:() => onPressed(),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
@@ -25,7 +24,7 @@ class ButtonItem extends StatelessWidget {
         child: Ink(
           decoration: BoxDecoration(
               gradient:LinearGradient(
-                colors: [ColorHelper.button.buttonColor1,ColorHelper.button.buttonColor2],
+                colors: [ColorHelper.buttonColor1,ColorHelper.buttonColor2],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -36,7 +35,7 @@ class ButtonItem extends StatelessWidget {
               buttonTxt,
               textAlign: TextAlign.center,
               style:
-                  TextStyle(color: ColorHelper.button.buttonText, fontWeight: FontWeight.bold),
+                  TextStyle(color: ColorHelper.buttonText, fontWeight: FontWeight.bold),
             ),
           ),
         ),

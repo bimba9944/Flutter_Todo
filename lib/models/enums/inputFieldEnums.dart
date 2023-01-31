@@ -1,0 +1,4 @@
+enum InputFieldEnums {
+  usernameInput,
+  passwordInput,
+}
