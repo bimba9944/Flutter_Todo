@@ -10,6 +10,7 @@ mixin AppLocale {
   static const String alreadyAMember = 'Already a member';
   static const String logIn = 'Login';
   static const String username = 'Username';
+  static const String snackBarMessage = 'Successfully logged in';
 
   static const Map<String, dynamic> EN = {
     title: 'TODO',
@@ -22,7 +23,8 @@ mixin AppLocale {
     register:register,
     alreadyAMember:alreadyAMember,
     logIn:logIn,
-    username:username
+    username:username,
+    snackBarMessage:snackBarMessage
   };
   static const Map<String, dynamic> KM = {
     title: '去做',
@@ -35,7 +37,8 @@ mixin AppLocale {
     register: '登记',
     alreadyAMember:'已经是会员',
     logIn:'登录',
-    username:'用户名或电子邮件'
+    username:'用户名或电子邮件',
+    snackBarMessage:'登录成功'
   };
   static const Map<String, dynamic> JA = {
     title: 'する',
@@ -48,6 +51,7 @@ mixin AppLocale {
     register:'登録',
     alreadyAMember:'すでに会員',
     logIn:'ログインする',
-    username:'ユーザー名または電子メール'
+    username:'ユーザー名または電子メール',
+    snackBarMessage:'正常にログインしました'
   };
 }

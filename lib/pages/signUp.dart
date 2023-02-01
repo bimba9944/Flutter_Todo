@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 import 'package:todo/helpers/iconHelper.dart';
 import 'package:todo/helpers/languageHelper.dart';
@@ -30,6 +32,15 @@ class _SignUpState extends State<SignUp> {
     super.initState();
   }
 
+  @override
+  void dispose(){
+    usernameController.dispose();
+    passwordController.dispose();
+    repeatPasswordController.dispose();
+    super.dispose();
+  }
+
+
   void _initDropdownValue() {
     String languageName = PreferencesHelper.getLanguage();
     String languageCode = PreferencesHelper.getLanguageKey();
@@ -41,21 +52,58 @@ class _SignUpState extends State<SignUp> {
     Navigator.pushNamed(context, '/LogIn');
   }
 
-  void validationOnClick() {
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController repeatPasswordController = TextEditingController();
+
+
+   Future<bool> registerUser(String username, String password) async {
+    try {
+      if(passwordController.text.contains(repeatPasswordController.text)){
+        final response = await http.post(
+          Uri.parse("https://jumborama-tasks.herokuapp.com/auth/signup"),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(
+              <String, String>{'username': username, 'password': password}),
+        );
+        return response.statusCode == 201;
+      }
+      else {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<void> validationOnClick() async {
     if (_formKey.currentState!.validate()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Processing Data')),
-      );
+        bool isGood = await registerUser(usernameController.text, passwordController.text);
+        if(!mounted){
+          return;
+        }
+        if(isGood){
+          _changePage();
+        }
+        else{
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('User already exist!')),
+          );
+        }
     }
   }
 
   bool _obscureText = true;
 
-  void togle(){
+  void togle() {
     setState(() {
       _obscureText = !_obscureText;
     });
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +153,8 @@ class _SignUpState extends State<SignUp> {
                     inputIcon: IconHelper.inputIconUser,
                     inputHint: AppLocale.username.getString(context),
                     inputType: InputFieldEnums.usernameInput,
-                    obscureText: false
+                    obscureText: false,
+                    controler: usernameController
                   ),
                   InputItems(
                     inputIcon: IconHelper.inputIconPassword,
@@ -114,6 +163,7 @@ class _SignUpState extends State<SignUp> {
                     obscureText: _obscureText,
                     togleIcon: IconHelper.toglePassword,
                     onPressed: togle,
+                    controler: passwordController,
                   ),
                   InputItems(
                     inputIcon: IconHelper.inputIconPassword,
@@ -122,6 +172,7 @@ class _SignUpState extends State<SignUp> {
                     obscureText: _obscureText,
                     togleIcon: IconHelper.toglePassword,
                     onPressed: togle,
+                    controler: repeatPasswordController,
                   ),
                 ],
               ),

@@ -4,6 +4,7 @@ import 'package:todo/helpers/colorHelper.dart';
 import 'package:todo/helpers/iconHelper.dart';
 import 'package:todo/helpers/languages.dart';
 import 'package:todo/helpers/preferencesHelper.dart';
+import 'package:todo/widgets/taskTile.dart';
 
 class PageAfterLogIn extends StatefulWidget {
   const PageAfterLogIn({Key? key}) : super(key: key);
@@ -27,6 +28,7 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
     Navigator.pop(context);
   }
 
+  String? username = PreferencesHelper.getUsername();
 
   @override
   Widget build(BuildContext context) {
@@ -55,11 +57,7 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
         ),
         body: TabBarView(
           children: [
-            Center(
-              child: Text(
-                AppLocale.text.getString(context),
-              ),
-            ),
+            ListView(children: [TaskTile()],),
             Center(
               child: Text('Things that are done!'),
             ),
@@ -76,9 +74,15 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
                     colors: [ColorHelper.header1,ColorHelper.header2],
                   ),
                 ),
-                child: Text(
-                  'Todo Manager',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    const Text(
+                      'Todo Manager',
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                    ),
+                    Text('Username: $username',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                  ],
                 ),
               ),
               ListTile(

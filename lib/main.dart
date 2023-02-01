@@ -44,10 +44,10 @@ class _MyAppState extends State<MyApp> {
     if(locale != null){
     PreferencesHelper.setLanguageCode(locale.languageCode);
     }
-
     _locale = locale;
     setState(() {});
   }
+
 
 
 

@@ -9,15 +9,17 @@ class InputItems extends StatelessWidget {
   final IconData? togleIcon;
   final bool obscureText;
   final Function? onPressed;
+  TextEditingController controler = TextEditingController();
 
-  const InputItems({
+  InputItems({
     super.key,
     required this.inputIcon,
     required this.inputHint,
     required this.inputType,
     this.togleIcon,
     required this.obscureText,
-    this.onPressed
+    this.onPressed,
+    required this.controler
   });
 
   bool isValidUsername(String value) {
@@ -26,7 +28,7 @@ class InputItems extends StatelessWidget {
   }
 
   bool isValidPassword(String value) {
-    final passwordRegEx = RegExp(r'[0-9a-zA-Z]{6}');
+    final passwordRegEx = RegExp(r'[0-9a-zA-Z]{8}');
     return passwordRegEx.hasMatch(value);
   }
 
@@ -48,8 +50,8 @@ class InputItems extends StatelessWidget {
       ),
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
       child: TextFormField(
-      obscureText: obscureText ,
-      controller: null,
+      obscureText: obscureText,
+      controller: controler,
       validator: (value) {
         String? validatorResult;
         if (inputType == InputFieldEnums.usernameInput && !isValidUsername(value!)) {

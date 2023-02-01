@@ -6,6 +6,8 @@ class PreferencesHelper {
   static String preferencesCode = "com.todoApp";
   static String languageCodeKey = "${preferencesCode}languageCodeKey";
   static String languageNameKey = "${preferencesCode}languageNameKey";
+  static String tokenKey = "${preferencesCode}tokenKey";
+  static String usernameKey = "${preferencesCode}tokenKey";
 
   PreferencesHelper();
 
@@ -17,7 +19,7 @@ class PreferencesHelper {
     await _preferences.setString(key, value);
   }
 
-  static String _getString(String key, String expValue) {
+  static String? _getString(String key, String? expValue) {
     String? value = _preferences.getString(key);
     return value ?? expValue;
   }
@@ -27,7 +29,7 @@ class PreferencesHelper {
   }
 
   static String getLanguageKey(){
-    return _getString(languageCodeKey, LanguageHelper.defaultLanguageCode);
+    return _getString(languageCodeKey, LanguageHelper.defaultLanguageCode)!;
   }
 
   static void setLanguage(String language){
@@ -35,12 +37,24 @@ class PreferencesHelper {
   }
 
   static String getLanguage(){
-    return _getString(languageNameKey, LanguageHelper.defaultLanguageName);
+    return _getString(languageNameKey, LanguageHelper.defaultLanguageName)!;
   }
 
+  static void setAccessToken(String accessToken){
+    _setString(tokenKey, accessToken);
+  }
 
+  static String? getAccessToken(){
+    return _getString(tokenKey, null);
+  }
 
+  static void setUsername(String username){
+    _setString(usernameKey, username);
+  }
 
+  static String? getUsername(){
+    return _getString(usernameKey, null);
+  }
 
 
 }
