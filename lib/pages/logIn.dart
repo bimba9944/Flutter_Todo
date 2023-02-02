@@ -28,19 +28,17 @@ class _LogInState extends State<LogIn> {
         Uri.parse("https://jumborama-tasks.herokuapp.com/auth/signin"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-
         },
         body: jsonEncode(
             <String, String>{'username': username, 'password': password}),
-
       );
       final parsed = jsonDecode(response.body);
       final String token = parsed['accessToken'];
       Map<String, dynamic> data = Jwt.parseJwt(token);
       String user = data['username'];
-      print(user);
+      print(token);
       PreferencesHelper.setAccessToken(token);
-      PreferencesHelper.setUsername(username);
+      PreferencesHelper.setUsername(user);
 
       return response.statusCode == 201;
     } catch (e) {

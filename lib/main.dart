@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 
+
 import 'package:todo/helpers/preferencesHelper.dart';
+import 'package:todo/pages/pageAfterLogIn.dart';
 import 'package:todo/pages/signUp.dart';
 import 'package:todo/pages/logIn.dart';
-import 'package:todo/pages/pageAfterLogIn.dart';
 import 'package:todo/helpers/languages.dart';
+import 'package:todo/pages/splashPage.dart';
 
 
 
@@ -48,9 +50,6 @@ class _MyAppState extends State<MyApp> {
     setState(() {});
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -62,8 +61,10 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),
-      home: SignUp(),
+      //home: SignUp(),
       routes: {
+        '/': (context) => SplashPage(),
+        '/SignUp' : (context) => SignUp(),
         '/LogIn': (context) => LogIn(),
         '/PageAfterLogIn': (context) => PageAfterLogIn(),
       },

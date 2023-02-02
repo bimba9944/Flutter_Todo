@@ -7,7 +7,7 @@ class PreferencesHelper {
   static String languageCodeKey = "${preferencesCode}languageCodeKey";
   static String languageNameKey = "${preferencesCode}languageNameKey";
   static String tokenKey = "${preferencesCode}tokenKey";
-  static String usernameKey = "${preferencesCode}tokenKey";
+  static String usernameKey = "${preferencesCode}usernameKey";
 
   PreferencesHelper();
 
@@ -24,37 +24,40 @@ class PreferencesHelper {
     return value ?? expValue;
   }
 
-  static void setLanguageCode(String code){
+  static void setLanguageCode(String code) {
     _setString(languageCodeKey, code);
   }
 
-  static String getLanguageKey(){
+  static String getLanguageKey() {
     return _getString(languageCodeKey, LanguageHelper.defaultLanguageCode)!;
   }
 
-  static void setLanguage(String language){
+  static void setLanguage(String language) {
     _setString(languageNameKey, language);
   }
 
-  static String getLanguage(){
+  static String getLanguage() {
     return _getString(languageNameKey, LanguageHelper.defaultLanguageName)!;
   }
 
-  static void setAccessToken(String accessToken){
+  static void setAccessToken(String accessToken) {
     _setString(tokenKey, accessToken);
   }
 
-  static String? getAccessToken(){
+  static String? getAccessToken() {
     return _getString(tokenKey, null);
   }
 
-  static void setUsername(String username){
+  static void setUsername(String username) {
     _setString(usernameKey, username);
   }
 
-  static String? getUsername(){
+  static String? getUsername() {
     return _getString(usernameKey, null);
   }
 
-
+  static void removeAfterLogout() {
+    _preferences.remove(tokenKey);
+    _preferences.remove(usernameKey);
+  }
 }

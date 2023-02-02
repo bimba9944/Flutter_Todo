@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
+
 import 'package:todo/helpers/colorHelper.dart';
 import 'package:todo/helpers/iconHelper.dart';
 import 'package:todo/helpers/languages.dart';
@@ -18,6 +19,7 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
 
   void _changePage(){
     Navigator.pushReplacementNamed(context, '/LogIn');
+    PreferencesHelper.removeAfterLogout();
   }
 
 
