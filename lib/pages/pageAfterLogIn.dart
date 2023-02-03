@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 import 'package:todo/helpers/colorHelper.dart';
 import 'package:todo/helpers/iconHelper.dart';
 import 'package:todo/helpers/languages.dart';
 import 'package:todo/helpers/preferencesHelper.dart';
+import 'package:todo/helpers/taskHelper.dart';
 import 'package:todo/widgets/taskTile.dart';
 
 class PageAfterLogIn extends StatefulWidget {
@@ -16,21 +19,86 @@ class PageAfterLogIn extends StatefulWidget {
 
 class _PageAfterLogInState extends State<PageAfterLogIn> {
   final FlutterLocalization _localization = FlutterLocalization.instance;
+  String? username = PreferencesHelper.getUsername();
+  late Color color1;
+  late Color color2;
+  List<Task> tasks = [];
+  List<Task> finishedTasks = [];
 
-  void _changePage(){
+  @override
+  void initState() {
+    getTasks();
+
+    super.initState();
+  }
+
+  void _changePage() {
     Navigator.pushReplacementNamed(context, '/LogIn');
     PreferencesHelper.removeAfterLogout();
   }
 
 
-  void _translate(String langCode,String langName){
+
+  Future<void> getTasks() async {
+    String? token = PreferencesHelper.getAccessToken();
+    final response = await http.get(
+      Uri.parse("https://jumborama-tasks.herokuapp.com/tasks"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    final parsed = jsonDecode(response.body);
+
+    tasks = [];
+    finishedTasks = [];
+    Task task;
+    for (var singleTask in parsed) {
+      task = Task(
+        id: singleTask['id'],
+        title: singleTask['title'],
+        description: singleTask['description'],
+        status: singleTask['status'],
+      );
+
+      if (task.status == 'OPEN') {
+        color1 = Colors.green;
+        tasks.add(task);
+      } else {
+        color2 = Colors.red;
+        finishedTasks.add(task);
+      }
+    }
+
+    setState(() {});
+  }
+
+  void _translate(String langCode, String langName) {
     _localization.translate(langCode);
     PreferencesHelper.setLanguageCode(langCode);
     PreferencesHelper.setLanguage(langName);
     Navigator.pop(context);
   }
 
-  String? username = PreferencesHelper.getUsername();
+  Widget _buildSingleListTile(Task task) {
+    return TaskTile(
+      title: task.title,
+      subtitle: task.description,
+      status: task.status,
+      colorOfText: task.status == 'OPEN' ? color1 : color2,
+    );
+  }
+
+  Widget _buildTasks(List<Task> taskList) {
+    Widget result;
+    if (taskList.isNotEmpty) {
+      result = ListView.builder(
+          itemCount: taskList.length, itemBuilder: (ctx, index) => _buildSingleListTile(taskList[index]));
+    } else {
+      result = const Center(child: CircularProgressIndicator());
+    }
+    return result;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,24 +113,20 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
             AppLocale.title.getString(context),
           ),
           backgroundColor: ColorHelper.appBarPageAfterLogIn,
-          bottom:TabBar(
-            tabs:  <Widget>[
+          bottom: TabBar(
+            tabs: const <Widget>[
               Tab(
-                icon: Icon(IconHelper.unFinishedTasks),
+                text: 'OPEN',
               ),
-              Tab(
-                icon: Icon(IconHelper.finished),
-              ),
+              Tab(text: 'DONE'),
             ],
             indicatorColor: ColorHelper.appBarIndicatorLine,
           ),
         ),
         body: TabBarView(
           children: [
-            ListView(children: [TaskTile()],),
-            Center(
-              child: Text('Things that are done!'),
-            ),
+            _buildTasks(tasks),
+            _buildTasks(finishedTasks),
           ],
         ),
         endDrawer: Drawer(
@@ -73,7 +137,7 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [ColorHelper.header1,ColorHelper.header2],
+                    colors: [ColorHelper.header1, ColorHelper.header2],
                   ),
                 ),
                 child: Column(
@@ -83,7 +147,10 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
                       'Todo Manager',
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                     ),
-                    Text('Username: $username',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                    Text(
+                      'Username: $username',
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
                   ],
                 ),
               ),
@@ -99,19 +166,16 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
                         child: Column(
                           children: [
                             TextButton(
-                              onPressed: () => _translate('en','English'),
-                              child: const Text('English',
-                                  style: TextStyle(fontSize: 25)),
+                              onPressed: () => _translate('en', 'English'),
+                              child: const Text('English', style: TextStyle(fontSize: 25)),
                             ),
                             TextButton(
-                              onPressed: () => _translate('ja','Japanese'),
-                              child: const Text('Japanese',
-                                  style: TextStyle(fontSize: 25)),
+                              onPressed: () => _translate('ja', 'Japanese'),
+                              child: const Text('Japanese', style: TextStyle(fontSize: 25)),
                             ),
                             TextButton(
-                              onPressed: () => _translate('km','Chinese'),
-                              child: const Text('Chinese',
-                                  style: TextStyle(fontSize: 25)),
+                              onPressed: () => _translate('km', 'Chinese'),
+                              child: const Text('Chinese', style: TextStyle(fontSize: 25)),
                             ),
                           ],
                         ),
@@ -125,7 +189,9 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
               ),
               ListTile(
                 leading: Icon(IconHelper.changeTheme),
-                title: Text(AppLocale.changeTheme.getString(context),),
+                title: Text(
+                  AppLocale.changeTheme.getString(context),
+                ),
               ),
               const Divider(
                 thickness: 1,
