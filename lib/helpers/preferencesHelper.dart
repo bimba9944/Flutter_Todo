@@ -56,7 +56,7 @@ class PreferencesHelper {
     return _getString(usernameKey, null);
   }
 
-  static void removeAfterLogout() {
+  static void removeTokenAndUsername() {
     _preferences.remove(tokenKey);
     _preferences.remove(usernameKey);
   }

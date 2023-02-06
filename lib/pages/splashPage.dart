@@ -25,11 +25,9 @@ class _SplashPageState extends State<SplashPage> {
       Navigator.pushReplacementNamed(context, '/SignUp');
     }
     else{
-      Navigator.pushReplacementNamed(context, '/PageAfterLogIn');
+      Navigator.pushReplacementNamed(context, '/HomePage');
     }
     }
-
-
 
   @override
   Widget build(BuildContext context) {

@@ -25,6 +25,7 @@ class _SignUpState extends State<SignUp> {
   Language? dropdownValue;
   final FlutterLocalization _localization = FlutterLocalization.instance;
   final _formKey = GlobalKey<FormState>();
+  bool _obscureText = true;
 
   @override
   void initState() {
@@ -58,6 +59,7 @@ class _SignUpState extends State<SignUp> {
 
 
    Future<bool> registerUser(String username, String password) async {
+     bool result;
     try {
       if(passwordController.text.contains(repeatPasswordController.text)){
         final response = await http.post(
@@ -68,14 +70,15 @@ class _SignUpState extends State<SignUp> {
           body: jsonEncode(
               <String, String>{'username': username, 'password': password}),
         );
-        return response.statusCode == 201;
+        result = response.statusCode == 201;
       }
       else {
-        return false;
+        result = false;
       }
     } catch (e) {
-      return false;
+      result = false;
     }
+    return result;
   }
 
   Future<void> validationOnClick() async {
@@ -89,13 +92,13 @@ class _SignUpState extends State<SignUp> {
         }
         else{
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('User already exist!')),
+           SnackBar(content: Text(AppLocale.snackBarError.getString(context))),
           );
         }
     }
   }
 
-  bool _obscureText = true;
+
 
   void togle() {
     setState(() {
@@ -133,7 +136,7 @@ class _SignUpState extends State<SignUp> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Icon(
-                    IconHelper.signUpContainerIcon,
+                    IconHelper.appIcon,
                     color: ColorHelper.signUpContainerIcon,
                     size: 60,
                   ),

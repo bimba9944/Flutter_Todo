@@ -3,11 +3,12 @@ import 'package:flutter_localization/flutter_localization.dart';
 
 
 import 'package:todo/helpers/preferencesHelper.dart';
-import 'package:todo/pages/pageAfterLogIn.dart';
+import 'package:todo/pages/homePage.dart';
 import 'package:todo/pages/signUp.dart';
 import 'package:todo/pages/logIn.dart';
 import 'package:todo/helpers/languages.dart';
 import 'package:todo/pages/splashPage.dart';
+import 'package:todo/pages/taskDetailsPage.dart';
 
 
 
@@ -27,7 +28,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final FlutterLocalization _localization = FlutterLocalization.instance;
   Locale? _locale;
-  String _languageCode = 'en';
+  late String _languageCode;
   @override
   void initState() {
      _languageCode = PreferencesHelper.getLanguageKey();
@@ -53,7 +54,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      locale: _locale ?? const Locale('en'),
+      locale: _locale ,
       supportedLocales: _localization.supportedLocales,
       localizationsDelegates: _localization.localizationsDelegates,
       debugShowCheckedModeBanner: false,
@@ -61,12 +62,12 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),
-      //home: SignUp(),
       routes: {
         '/': (context) => SplashPage(),
         '/SignUp' : (context) => SignUp(),
         '/LogIn': (context) => LogIn(),
-        '/PageAfterLogIn': (context) => PageAfterLogIn(),
+        '/HomePage': (context) => HomePage(),
+        '/TaskDetails': (context) => TaskDetails(),
       },
     );
   }

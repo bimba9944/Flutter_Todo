@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class IconHelper{
-  static IconData signUpContainerIcon = Icons.ac_unit;
-  static IconData logInContainerIcon = Icons.ac_unit;
+  static IconData appIcon = Icons.ac_unit;
   static IconData inputIconPassword = Icons.key;
   static IconData inputIconUser = Icons.perm_identity;
   static IconData dropdownIcon = Icons.language;

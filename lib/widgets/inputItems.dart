@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:todo/helpers/colorHelper.dart';
+import 'package:todo/helpers/languages.dart';
 import 'package:todo/models/enums/inputFieldEnums.dart';
 
 class InputItems extends StatelessWidget {
@@ -55,10 +57,10 @@ class InputItems extends StatelessWidget {
       validator: (value) {
         String? validatorResult;
         if (inputType == InputFieldEnums.usernameInput && !isValidUsername(value!)) {
-          validatorResult = 'Invalid username';
+          validatorResult = AppLocale.snackBarError.getString(context);
         }
         else if (inputType == InputFieldEnums.passwordInput && !isValidPassword(value!)) {
-          validatorResult = 'Invalid password';
+          validatorResult = AppLocale.snackBarError.getString(context);
         }
         return validatorResult;
       },

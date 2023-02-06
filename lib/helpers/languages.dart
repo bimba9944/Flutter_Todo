@@ -11,6 +11,13 @@ mixin AppLocale {
   static const String logIn = 'Login';
   static const String username = 'Username';
   static const String snackBarMessage = 'Successfully logged in';
+  static const String snackBarError = 'Invalid data!';
+  static const String tabBarOpen = 'OPEN';
+  static const String tabBarDone = 'DONE';
+  static const String dialogTitle = 'Title';
+  static const String dialogDescription = 'Description';
+  static const String dialogAddTask = 'Add task';
+  static const String dialogCancel = 'Cancel';
 
   static const Map<String, dynamic> EN = {
     title: 'TODO',
@@ -24,7 +31,14 @@ mixin AppLocale {
     alreadyAMember:alreadyAMember,
     logIn:logIn,
     username:username,
-    snackBarMessage:snackBarMessage
+    snackBarMessage:snackBarMessage,
+    snackBarError:snackBarError,
+    tabBarOpen:tabBarOpen,
+    tabBarDone:tabBarDone,
+    dialogTitle:dialogTitle,
+    dialogDescription:dialogDescription,
+    dialogAddTask:dialogAddTask,
+    dialogCancel:dialogCancel
   };
   static const Map<String, dynamic> KM = {
     title: '去做',
@@ -38,7 +52,14 @@ mixin AppLocale {
     alreadyAMember:'已经是会员',
     logIn:'登录',
     username:'用户名或电子邮件',
-    snackBarMessage:'登录成功'
+    snackBarMessage:'登录成功',
+    snackBarError:'无效数据！',
+    tabBarOpen:'打开',
+    tabBarDone:'完毕',
+    dialogTitle:'标题',
+    dialogDescription:'描述',
+    dialogAddTask:'添加任务',
+    dialogCancel:'取消'
   };
   static const Map<String, dynamic> JA = {
     title: 'する',
@@ -52,6 +73,13 @@ mixin AppLocale {
     alreadyAMember:'すでに会員',
     logIn:'ログインする',
     username:'ユーザー名または電子メール',
-    snackBarMessage:'正常にログインしました'
+    snackBarMessage:'正常にログインしました',
+    snackBarError:'無効なデータ!',
+    tabBarOpen:'開ける',
+    tabBarDone:'完毕',
+    dialogTitle:'タイトル',
+    dialogDescription:'説明',
+    dialogAddTask:'タスクを追加',
+    dialogCancel:'キャンセル'
   };
 }

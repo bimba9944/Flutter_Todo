@@ -21,6 +21,7 @@ class LogIn extends StatefulWidget {
 
 class _LogInState extends State<LogIn> {
   final _formKey = GlobalKey<FormState>();
+  bool _obscureText = true;
 
   Future<bool> loginUser(String username, String password) async {
     try {
@@ -36,9 +37,9 @@ class _LogInState extends State<LogIn> {
       final String token = parsed['accessToken'];
       Map<String, dynamic> data = Jwt.parseJwt(token);
       String user = data['username'];
-      print(token);
       PreferencesHelper.setAccessToken(token);
       PreferencesHelper.setUsername(user);
+      print(token);
 
       return response.statusCode == 201;
     } catch (e) {
@@ -57,20 +58,19 @@ class _LogInState extends State<LogIn> {
         return;
       }
       if(isGood){
-        Navigator.pushReplacementNamed(context, '/PageAfterLogIn');
+        Navigator.pushReplacementNamed(context, '/HomePage');
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(AppLocale.snackBarMessage.getString(context))),
         );
       }
       else{
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('No such user!')),
+          SnackBar(content: Text(AppLocale.snackBarError.getString(context))),
         );
       }
     }
   }
 
-  bool _obscureText = true;
 
   void togle() {
     setState(() {
@@ -117,9 +117,9 @@ class _LogInState extends State<LogIn> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
+                children: [
                   Icon(
-                    IconHelper.logInContainerIcon,
+                    IconHelper.appIcon,
                     color: ColorHelper.logInContainerIcon,
                     size: 60,
                   ),

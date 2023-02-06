@@ -8,16 +8,17 @@ import 'package:todo/helpers/iconHelper.dart';
 import 'package:todo/helpers/languages.dart';
 import 'package:todo/helpers/preferencesHelper.dart';
 import 'package:todo/helpers/taskHelper.dart';
+import 'package:todo/widgets/dialogWidget.dart';
 import 'package:todo/widgets/taskTile.dart';
 
-class PageAfterLogIn extends StatefulWidget {
-  const PageAfterLogIn({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<PageAfterLogIn> createState() => _PageAfterLogInState();
+  State<HomePage> createState() => _HomePage();
 }
 
-class _PageAfterLogInState extends State<PageAfterLogIn> {
+class _HomePage extends State<HomePage> {
   final FlutterLocalization _localization = FlutterLocalization.instance;
   String? username = PreferencesHelper.getUsername();
   late Color color1;
@@ -28,16 +29,13 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
   @override
   void initState() {
     getTasks();
-
     super.initState();
   }
 
   void _changePage() {
+    PreferencesHelper.removeTokenAndUsername();
     Navigator.pushReplacementNamed(context, '/LogIn');
-    PreferencesHelper.removeAfterLogout();
   }
-
-
 
   Future<void> getTasks() async {
     String? token = PreferencesHelper.getAccessToken();
@@ -86,6 +84,8 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
       subtitle: task.description,
       status: task.status,
       colorOfText: task.status == 'OPEN' ? color1 : color2,
+      colorOfBorder: task.status == 'OPEN' ? color1 : color2,
+      id: task.id,
     );
   }
 
@@ -112,13 +112,21 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
           title: Text(
             AppLocale.title.getString(context),
           ),
-          backgroundColor: ColorHelper.appBarPageAfterLogIn,
-          bottom: TabBar(
-            tabs: const <Widget>[
-              Tab(
-                text: 'OPEN',
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [Colors.deepOrangeAccent, Colors.orangeAccent],
               ),
-              Tab(text: 'DONE'),
+            ),
+          ),
+          bottom: TabBar(
+            tabs: <Widget>[
+              Tab(
+                text: AppLocale.tabBarOpen.getString(context),
+              ),
+              Tab(text: AppLocale.tabBarDone.getString(context)),
             ],
             indicatorColor: ColorHelper.appBarIndicatorLine,
           ),
@@ -128,6 +136,15 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
             _buildTasks(tasks),
             _buildTasks(finishedTasks),
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () =>
+              showDialog<String>(context: context, builder: (BuildContext context) => DialogWidget(getTasks)),
+          backgroundColor: Colors.deepOrangeAccent,
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
         ),
         endDrawer: Drawer(
           child: ListView(
@@ -204,7 +221,6 @@ class _PageAfterLogInState extends State<PageAfterLogIn> {
             ],
           ),
         ),
-        endDrawerEnableOpenDragGesture: false,
       ),
     );
   }
