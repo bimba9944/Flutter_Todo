@@ -1,37 +1,31 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:todo/helpers/preferencesHelper.dart';
+import 'package:todo/helpers/appRoutes.dart';
+
+import 'package:todo/helpers/taskService.dart';
 import 'package:todo/widgets/changeAndDeleteDialog.dart';
 import 'package:todo/widgets/taskTile.dart';
-import 'package:http/http.dart' as http;
+
 
 class TaskDetails extends StatefulWidget {
+  const TaskDetails({super.key});
 
   @override
   State<TaskDetails> createState() => _TaskDetailsState();
 }
 
 class _TaskDetailsState extends State<TaskDetails> {
-  Future<bool> changeStatus(String id, String status) async {
-    String? token = PreferencesHelper.getAccessToken();
+  Future<bool> changeStatus( String id,String status) async {
     try {
       if (status == 'OPEN') {
         status = 'DONE';
       } else {
         status = 'OPEN';
       }
-      final response = await http.patch(
-        Uri.parse("https://jumborama-tasks.herokuapp.com/tasks/$id/status"),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': 'Bearer $token',
-        },
-        body: jsonEncode(<String, String>{'status': status}),
-      );
+      TaskService service = TaskService.create();
+      final response = await service.patchPost({"status": status}, id);
       if (mounted) {
         Navigator.pop(context);
-        Navigator.pushReplacementNamed(context, '/HomePage');
+        Navigator.pushReplacementNamed(context, AppRoutes.homePage);
       }
       return response.statusCode == 201;
     } catch (e) {
@@ -40,29 +34,22 @@ class _TaskDetailsState extends State<TaskDetails> {
   }
 
   Future<bool> deleteTask(String id) async {
-    String? token = PreferencesHelper.getAccessToken();
     try {
-      final response = await http.delete(
-        Uri.parse("https://jumborama-tasks.herokuapp.com/tasks/$id"),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': 'Bearer $token',
-        },
-      );
+      TaskService service = TaskService.create();
+      final response = await service.deleteTask(id);
       if (mounted) {
         Navigator.pop(context);
-        Navigator.pushReplacementNamed(context, '/HomePage');
+        Navigator.pushReplacementNamed(context, AppRoutes.homePage);
       }
       return response.statusCode == 201;
     } catch (e) {
       return false;
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as TaskTile;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Task details'),
@@ -100,7 +87,7 @@ class _TaskDetailsState extends State<TaskDetails> {
                 ElevatedButton(
                   onPressed: () => showDialog<String>(
                     context: context,
-                    builder: (BuildContext context) =>  ChangeAndDeleteDialog(
+                    builder: (BuildContext context) => ChangeAndDeleteDialog(
                       title: 'Mark as done?',
                       subtitle: 'You are about to change status of task. Are you sure you want to continue?',
                       id: args.id,
@@ -109,13 +96,13 @@ class _TaskDetailsState extends State<TaskDetails> {
                       isDelete: false,
                     ),
                   ),
-                  child: Text('Change status', style: TextStyle(color: Colors.white)),
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                  child: const Text('Change status', style: TextStyle(color: Colors.white)),
                 ),
                 ElevatedButton(
                   onPressed: () => showDialog<String>(
                     context: context,
-                    builder: (BuildContext context) =>  ChangeAndDeleteDialog(
+                    builder: (BuildContext context) => ChangeAndDeleteDialog(
                       title: 'Delete task?',
                       subtitle: 'You are about to delete this task. Are you sure you want to continue?',
                       id: args.id,
@@ -124,8 +111,8 @@ class _TaskDetailsState extends State<TaskDetails> {
                       isDelete: true,
                     ),
                   ),
-                  child: Text('Delete task', style: TextStyle(color: Colors.white)),
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                  child: const Text('Delete task', style: TextStyle(color: Colors.white)),
                 )
               ],
             ),

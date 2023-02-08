@@ -6,9 +6,11 @@ import 'package:todo/helpers/preferencesHelper.dart';
 import 'package:todo/pages/homePage.dart';
 import 'package:todo/pages/signUp.dart';
 import 'package:todo/pages/logIn.dart';
-import 'package:todo/helpers/languages.dart';
 import 'package:todo/pages/splashPage.dart';
 import 'package:todo/pages/taskDetailsPage.dart';
+
+import 'helpers/appRoutes.dart';
+import 'helpers/languageHelper.dart';
 
 
 
@@ -32,11 +34,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
      _languageCode = PreferencesHelper.getLanguageKey();
-    _localization.init(mapLocales: [
-      const MapLocale('en', AppLocale.EN),
-      const MapLocale('km', AppLocale.KM),
-      const MapLocale('ja', AppLocale.JA),
-    ],
+    _localization.init(mapLocales: LanguageHelper.mapOfLanguages,
         initLanguageCode: _languageCode,
     );
     _localization.onTranslatedLanguage = onTranslatedLanguage;
@@ -63,11 +61,11 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.orange,
       ),
       routes: {
-        '/': (context) => SplashPage(),
-        '/SignUp' : (context) => SignUp(),
-        '/LogIn': (context) => LogIn(),
-        '/HomePage': (context) => HomePage(),
-        '/TaskDetails': (context) => TaskDetails(),
+        AppRoutes.defaultRoute: (context) => SplashPage(),
+        AppRoutes.signUp : (context) => SignUp(),
+        AppRoutes.logIn: (context) => LogIn(),
+        AppRoutes.homePage: (context) => HomePage(),
+        AppRoutes.taskDetails: (context) => TaskDetails(),
       },
     );
   }

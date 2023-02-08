@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo/helpers/appRoutes.dart';
 
 class TaskTile extends StatelessWidget {
   final String title;
@@ -19,7 +20,7 @@ class TaskTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, '/TaskDetails',
+      onTap: () => Navigator.pushNamed(context, AppRoutes.taskDetails,
           arguments: TaskTile(
               title: title,
               subtitle: subtitle,
@@ -38,7 +39,7 @@ class TaskTile extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              margin: const EdgeInsets.only(top: 15, left: 23),
+              margin: const EdgeInsets.only(top: 15, left: 10),
               alignment: Alignment.topLeft,
               child: Text(
                 status,
@@ -51,7 +52,7 @@ class TaskTile extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * 0.02,
                   height: MediaQuery.of(context).size.height * 0.1,
                   decoration: BoxDecoration(color: colorOfBorder),
-                  margin: EdgeInsets.only(left: 10, top: 5, bottom: 15),
+                  margin: const EdgeInsets.only(left: 10, top: 5, bottom: 15),
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width * 0.85,
@@ -65,7 +66,7 @@ class TaskTile extends StatelessWidget {
                   child: ListTile(
                     contentPadding: const EdgeInsets.only(left: 8, top: 3, bottom: 3),
                     title: Text(title),
-                    subtitle: Text(subtitle),
+                    subtitle: Text(subtitle,maxLines: 1),
                     //isThreeLine: true,
                   ),
                 ),

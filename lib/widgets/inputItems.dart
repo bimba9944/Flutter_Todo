@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:todo/helpers/colorHelper.dart';
 import 'package:todo/helpers/languages.dart';
+import 'package:todo/helpers/regExpHelper.dart';
 import 'package:todo/models/enums/inputFieldEnums.dart';
 
-class InputItems extends StatelessWidget {
+class InputItems extends StatefulWidget {
   final IconData inputIcon;
   final String inputHint;
   final InputFieldEnums inputType;
@@ -24,17 +25,29 @@ class InputItems extends StatelessWidget {
     required this.controler
   });
 
+  @override
+  State<InputItems> createState() => _InputItemsState();
+}
+
+class _InputItemsState extends State<InputItems> {
   bool isValidUsername(String value) {
-    final usernameRegEx = RegExp(r'[0-9a-zA-Z]{6}');
-    return usernameRegEx.hasMatch(value);
+    return RegExpHelper.usernameRegEx.hasMatch(value);
   }
 
   bool isValidPassword(String value) {
-    final passwordRegEx = RegExp(r'[0-9a-zA-Z]{8}');
-    return passwordRegEx.hasMatch(value);
+    return RegExpHelper.passwordRegEx.hasMatch(value);
   }
 
-
+  String? validator(value){
+    String? validatorResult;
+    if (widget.inputType == InputFieldEnums.usernameInput && !isValidUsername(value!)) {
+      validatorResult = AppLocale.snackBarError.getString(context);
+    }
+    else if (widget.inputType == InputFieldEnums.passwordInput && !isValidPassword(value!)) {
+      validatorResult = AppLocale.snackBarError.getString(context);
+    }
+    return validatorResult;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,24 +65,15 @@ class InputItems extends StatelessWidget {
       ),
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
       child: TextFormField(
-      obscureText: obscureText,
-      controller: controler,
-      validator: (value) {
-        String? validatorResult;
-        if (inputType == InputFieldEnums.usernameInput && !isValidUsername(value!)) {
-          validatorResult = AppLocale.snackBarError.getString(context);
-        }
-        else if (inputType == InputFieldEnums.passwordInput && !isValidPassword(value!)) {
-          validatorResult = AppLocale.snackBarError.getString(context);
-        }
-        return validatorResult;
-      },
+      obscureText: widget.obscureText,
+      controller: widget.controler,
+      validator: validator,
       decoration: InputDecoration(
         prefixIcon: Icon(
-          inputIcon,
+          widget.inputIcon,
           color: ColorHelper.inputIcon,
         ),
-        suffixIcon: IconButton(onPressed: () => onPressed!(), icon: Icon(togleIcon),),
+        suffixIcon: IconButton(onPressed: () => widget.onPressed!(), icon: Icon(widget.togleIcon),),
 
         errorStyle: TextStyle(
           color: Theme
@@ -78,7 +82,7 @@ class InputItems extends StatelessWidget {
           fontWeight: FontWeight.bold,
           fontSize: 13,
         ),
-        hintText: inputHint,
+        hintText: widget.inputHint,
         hintStyle: TextStyle(fontSize: 16, color: ColorHelper.inputHint),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
@@ -93,5 +97,4 @@ class InputItems extends StatelessWidget {
       ),
     ),);
   }
-
 }

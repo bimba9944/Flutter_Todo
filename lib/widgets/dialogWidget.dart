@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
-import 'package:http/http.dart' as http;
 import 'package:todo/helpers/languages.dart';
-import 'dart:convert';
 
-import 'package:todo/helpers/preferencesHelper.dart';
+import 'package:todo/helpers/taskService.dart';
 
 class DialogWidget extends StatefulWidget {
   final Function displayTasks;
@@ -18,6 +16,7 @@ class DialogWidget extends StatefulWidget {
 class _DialogWidgetState extends State<DialogWidget> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+
   Widget inputField(String hintTxt, int numLines, TextEditingController controler) {
     return TextFormField(
       controller: controler,
@@ -30,17 +29,10 @@ class _DialogWidgetState extends State<DialogWidget> {
   }
 
   Future<bool> postTask(String title, String description) async {
-    String? token = PreferencesHelper.getAccessToken();
-    if (titleController != null && descriptionController != null) {
+    if (titleController.text.isNotEmpty && descriptionController.text.isNotEmpty) {
       try {
-        final response = await http.post(
-          Uri.parse("https://jumborama-tasks.herokuapp.com/tasks"),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-            'Authorization': 'Bearer $token',
-          },
-          body: jsonEncode(<String, String>{'title': title, 'description': description}),
-        );
+        TaskService service = TaskService.create();
+        final response = await service.postTasks({"title": titleController.text,"description":descriptionController.text});
         widget.displayTasks();
         if (mounted) {
           Navigator.pop(context);
@@ -53,7 +45,6 @@ class _DialogWidgetState extends State<DialogWidget> {
       return false;
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -77,12 +68,12 @@ class _DialogWidgetState extends State<DialogWidget> {
             ElevatedButton(
               onPressed: () => postTask(titleController.text, descriptionController.text),
               style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-              child: Text(AppLocale.dialogAddTask.getString(context), style: TextStyle(color: Colors.white)),
+              child: Text(AppLocale.dialogAddTask.getString(context), style: const TextStyle(color: Colors.white)),
             ),
             ElevatedButton(
               onPressed: () => Navigator.pop(context, 'Cancel'),
               style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-              child: Text(AppLocale.dialogCancel.getString(context), style: TextStyle(color: Colors.white)),
+              child: Text(AppLocale.dialogCancel.getString(context), style: const TextStyle(color: Colors.white)),
             ),
           ],
         )

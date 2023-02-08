@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:jwt_decode/jwt_decode.dart';
+import 'package:todo/helpers/appRoutes.dart';
 import 'package:todo/helpers/preferencesHelper.dart';
 
 class SplashPage extends StatefulWidget {
@@ -22,10 +23,10 @@ class _SplashPageState extends State<SplashPage> {
   void changePage(){
     String? token = PreferencesHelper.getAccessToken();
     if(token == null || Jwt.isExpired(token)){
-      Navigator.pushReplacementNamed(context, '/SignUp');
+      Navigator.pushReplacementNamed(context, AppRoutes.signUp);
     }
     else{
-      Navigator.pushReplacementNamed(context, '/HomePage');
+      Navigator.pushReplacementNamed(context, AppRoutes.homePage);
     }
     }
 

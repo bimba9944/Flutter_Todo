@@ -11,6 +11,8 @@ class PreferencesHelper {
 
   PreferencesHelper();
 
+  static String? accessToken = getAccessToken();
+
   static Future<void> init() async {
     _preferences = await SharedPreferences.getInstance();
   }
