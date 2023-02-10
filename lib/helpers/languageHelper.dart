@@ -11,9 +11,9 @@ class LanguageHelper{
   static String defaultLanguageName = 'English';
 
   static List<Language> languages = [
-    Language(languageName: "English", languageCode: "en", imagePath: ""),
-    Language(languageName: "Chinese", languageCode: "km", imagePath: ""),
-    Language(languageName: "Japanese", languageCode: "ja", imagePath: ""),
+    Language(languageName: "English", languageCode: "en", imagePath: "assets/images/english.png"),
+    Language(languageName: "中国人", languageCode: "km", imagePath: "assets/images/chinese.png"),
+    Language(languageName: "日本", languageCode: "ja", imagePath: "assets/images/japanese.png"),
   ];
 
   static List<MapLocale> mapOfLanguages = [

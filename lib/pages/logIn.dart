@@ -42,9 +42,9 @@ class _LogInState extends State<LogIn> {
       }
       if (isGood) {
         Navigator.pushReplacementNamed(context, AppRoutes.homePage);
-        callingSnackBar(AppLocale.snackBarMessage);
+        callingSnackBar(AppLocale.snackBarMessage.getString(context));
       } else {
-        callingSnackBar(AppLocale.snackBarError);
+        callingSnackBar(AppLocale.snackBarError.getString(context));
       }
     }
   }
@@ -108,6 +108,7 @@ class _LogInState extends State<LogIn> {
               icon: IconHelper.appIcon,
               iconColor: ColorHelper.logInContainerIcon,
               title: '',
+              contHeight: 0.2,
             ),
             const SizedBox(
               height: 40,

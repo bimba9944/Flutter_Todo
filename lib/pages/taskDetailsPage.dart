@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo/helpers/appRoutes.dart';
+import 'package:todo/helpers/notificationService.dart';
 
 import 'package:todo/helpers/taskService.dart';
 import 'package:todo/widgets/changeAndDeleteDialog.dart';
@@ -26,6 +27,7 @@ class _TaskDetailsState extends State<TaskDetails> {
       if (mounted) {
         Navigator.pop(context);
         Navigator.pushReplacementNamed(context, AppRoutes.homePage);
+        NotificationService().showNotification(title: 'Notification',body: 'Status changed successfully');
       }
       return response.statusCode == 201;
     } catch (e) {
@@ -40,6 +42,7 @@ class _TaskDetailsState extends State<TaskDetails> {
       if (mounted) {
         Navigator.pop(context);
         Navigator.pushReplacementNamed(context, AppRoutes.homePage);
+        NotificationService().showNotification(title: 'Notification',body: 'Task deleted successfully');
       }
       return response.statusCode == 201;
     } catch (e) {

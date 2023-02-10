@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
+import 'package:todo/helpers/notificationService.dart';
 
 
 import 'package:todo/helpers/preferencesHelper.dart';
 import 'package:todo/pages/homePage.dart';
+import 'package:todo/pages/selectLanguagePage.dart';
 import 'package:todo/pages/signUp.dart';
 import 'package:todo/pages/logIn.dart';
 import 'package:todo/pages/splashPage.dart';
@@ -16,6 +18,7 @@ import 'helpers/languageHelper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  NotificationService().initNotification();
   await PreferencesHelper.init();
   runApp(MyApp());
 }
@@ -66,6 +69,7 @@ class _MyAppState extends State<MyApp> {
         AppRoutes.logIn: (context) => LogIn(),
         AppRoutes.homePage: (context) => HomePage(),
         AppRoutes.taskDetails: (context) => TaskDetails(),
+        AppRoutes.languagePage: (context) => SelectLanguagePage()
       },
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:todo/helpers/languages.dart';
+import 'package:todo/helpers/notificationService.dart';
 
 import 'package:todo/helpers/taskService.dart';
 
@@ -36,6 +37,7 @@ class _DialogWidgetState extends State<DialogWidget> {
         widget.displayTasks();
         if (mounted) {
           Navigator.pop(context);
+          NotificationService().showNotification(title: 'Notification',body: 'Task added successfully');
         }
         return response.statusCode == 201;
       } catch (e) {

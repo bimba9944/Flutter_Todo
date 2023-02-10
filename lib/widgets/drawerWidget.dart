@@ -3,10 +3,10 @@ import 'package:flutter_localization/flutter_localization.dart';
 import 'package:todo/helpers/appRoutes.dart';
 import 'package:todo/helpers/colorHelper.dart';
 import 'package:todo/helpers/iconHelper.dart';
-import 'package:todo/helpers/languageHelper.dart';
+
 import 'package:todo/helpers/languages.dart';
 import 'package:todo/helpers/preferencesHelper.dart';
-import 'package:todo/models/language.dart';
+
 
 class DrawerWidget extends StatefulWidget {
   const DrawerWidget({Key? key}) : super(key: key);
@@ -17,47 +17,16 @@ class DrawerWidget extends StatefulWidget {
 
 class _DrawerWidgetState extends State<DrawerWidget> {
   String? username = PreferencesHelper.getUsername();
-  final FlutterLocalization _localization = FlutterLocalization.instance;
-
-  void _translate(String langCode, String langName) {
-    _localization.translate(langCode);
-    PreferencesHelper.setLanguageCode(langCode);
-    PreferencesHelper.setLanguage(langName);
-    Navigator.pop(context);
-  }
 
   void _changePage() {
     PreferencesHelper.removeTokenAndUsername();
-    Navigator.pushReplacementNamed(context, AppRoutes.logIn);
+    Navigator.pushReplacementNamed(context, AppRoutes.signUp);
   }
 
-  List<Widget> _buildLanguageOptions() {
-    List<Widget> options = [];
-    for (Language language in LanguageHelper.languages) {
-      options.add(
-        TextButton(
-          onPressed: () => _translate(language.languageCode, language.languageName),
-          child: Text(language.languageName, style: const TextStyle(fontSize: 25)),
-        ),
-      );
-    }
-    return options;
+  Future _openLanguagePage(){
+    return Navigator.pushNamed(context, AppRoutes.languagePage);
   }
 
-  Future _buildModalSheet() {
-    Size size = MediaQuery.of(context).size;
-    return showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return SizedBox(
-          height: size.height * 0.4,
-          child: Column(
-            children: _buildLanguageOptions(),
-          ),
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +58,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           ListTile(
             leading: Icon(IconHelper.changeLanguage),
             title: Text(AppLocale.changeLanguage.getString(context)),
-            onTap: _buildModalSheet,
+            onTap: _openLanguagePage,
           ),
           const Divider(
             thickness: 1,

@@ -48,8 +48,8 @@ class _SignUpState extends State<SignUp> {
   }
 
   void _initDropdownValue() {
-    String languageName = PreferencesHelper.getLanguage();
     String languageCode = PreferencesHelper.getLanguageKey();
+    String languageName = PreferencesHelper.getLanguage();
     dropdownValue = Language(languageName: languageName, languageCode: languageCode, imagePath: '');
     setState(() {});
   }
@@ -57,9 +57,6 @@ class _SignUpState extends State<SignUp> {
   void _changePage() {
     Navigator.pushNamed(context, AppRoutes.logIn);
   }
-
-
-
 
   ScaffoldFeatureController<SnackBar, SnackBarClosedReason> callingSnackBar(String message) {
     return ScaffoldMessenger.of(context).showSnackBar(
@@ -121,7 +118,7 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  void _dropdownOnchanged(Language? language){
+  void _dropdownOnChanged(Language? language){
     String languageCode = PreferencesHelper.getLanguageKey();
     String languageName = PreferencesHelper.getLanguage();
     if (language != null) {
@@ -129,7 +126,6 @@ class _SignUpState extends State<SignUp> {
       languageCode = language.languageCode;
       languageName = language.languageName;
     }
-
     _localization.translate(languageCode);
     PreferencesHelper.setLanguageCode(languageCode);
     PreferencesHelper.setLanguage(languageName);
@@ -148,7 +144,7 @@ class _SignUpState extends State<SignUp> {
       items: listOfLanguages.map<DropdownMenuItem<Language>>((Language language) {
         return DropdownMenuItem(value: language, child: Text(language.languageName));
       }).toList(),
-      onChanged: _dropdownOnchanged,
+      onChanged: _dropdownOnChanged,
     );
   }
 
@@ -165,7 +161,7 @@ class _SignUpState extends State<SignUp> {
                 color2: ColorHelper.signUpContainer2,
                 icon: IconHelper.appIcon,
                 iconColor: ColorHelper.signUpContainerIcon,
-                title: 'Todo Manager',),
+                title: 'Todo Manager', contHeight: 0.27,),
             const SizedBox(height: 30),
             _buildForm(),
             const SizedBox(height: 30),

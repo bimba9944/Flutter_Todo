@@ -6,15 +6,16 @@ class HeaderContainerWidget extends StatelessWidget {
   final IconData icon;
   final Color iconColor;
   final String? title;
+  final double contHeight;
 
   const HeaderContainerWidget(
-      {super.key, required this.color1, required this.color2, required this.icon, required this.iconColor, this.title});
+      {super.key, required this.color1, required this.color2, required this.icon, required this.iconColor, this.title, required this.contHeight});
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      height: size.height * 0.27,
+      height: size.height * contHeight,
       width: size.width * 1,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(

@@ -18,6 +18,10 @@ mixin AppLocale {
   static const String dialogDescription = 'Description';
   static const String dialogAddTask = 'Add task';
   static const String dialogCancel = 'Cancel';
+  static const String selectLanguagePageTitle = 'Choose language';
+  static const String selectLanguageEnglish = 'English';
+  static const String selectLanguageChinese = 'Chinese';
+  static const String selectLanguageJapanese = 'Japanese';
 
   static const Map<String, dynamic> EN = {
     title: 'TODO',
@@ -38,7 +42,11 @@ mixin AppLocale {
     dialogTitle:dialogTitle,
     dialogDescription:dialogDescription,
     dialogAddTask:dialogAddTask,
-    dialogCancel:dialogCancel
+    dialogCancel:dialogCancel,
+    selectLanguagePageTitle: selectLanguagePageTitle,
+    selectLanguageEnglish:selectLanguageEnglish,
+    selectLanguageChinese:selectLanguageChinese,
+    selectLanguageJapanese:selectLanguageJapanese
   };
   static const Map<String, dynamic> KM = {
     title: '去做',
@@ -59,7 +67,11 @@ mixin AppLocale {
     dialogTitle:'标题',
     dialogDescription:'描述',
     dialogAddTask:'添加任务',
-    dialogCancel:'取消'
+    dialogCancel:'取消',
+    selectLanguagePageTitle: '选择语言',
+    selectLanguageEnglish: '英语',
+    selectLanguageChinese:'中国人',
+    selectLanguageJapanese: '日本人'
   };
   static const Map<String, dynamic> JA = {
     title: 'する',
@@ -80,6 +92,10 @@ mixin AppLocale {
     dialogTitle:'タイトル',
     dialogDescription:'説明',
     dialogAddTask:'タスクを追加',
-    dialogCancel:'キャンセル'
+    dialogCancel:'キャンセル',
+    selectLanguagePageTitle:'言語を選択',
+    selectLanguageEnglish:'英語',
+    selectLanguageChinese:'中国語',
+    selectLanguageJapanese:'日本'
   };
 }
