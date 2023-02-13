@@ -20,7 +20,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
 
   void _changePage() {
     PreferencesHelper.removeTokenAndUsername();
-    Navigator.pushReplacementNamed(context, AppRoutes.signUp);
+    Navigator.pushReplacementNamed(context, AppRoutes.register);
   }
 
   Future _openLanguagePage(){

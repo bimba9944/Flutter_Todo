@@ -30,7 +30,7 @@ class _$UserChopperService extends UserChopperService {
   }
 
   @override
-  Future<Response<dynamic>> postSignup(Map<String, dynamic> body) {
+  Future<Response<dynamic>> postRegister(Map<String, dynamic> body) {
     final Uri $url = Uri.parse('/auth/signup');
     final $body = body;
     final Request $request = Request(

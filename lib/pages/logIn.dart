@@ -5,7 +5,8 @@ import 'package:todo/helpers/iconHelper.dart';
 
 
 import 'package:todo/helpers/languages.dart';
-import 'package:todo/helpers/userService.dart';
+import 'package:todo/helpers/snackBarHelper.dart';
+import 'package:todo/services/userService.dart';
 import 'package:todo/models/enums/inputFieldEnums.dart';
 import 'package:todo/widgets/buttonItem.dart';
 import 'package:todo/widgets/headerContainerWidget.dart';
@@ -28,28 +29,22 @@ class _LogInState extends State<LogIn> {
 
 
 
-  ScaffoldFeatureController<SnackBar, SnackBarClosedReason> callingSnackBar(String message) {
-    return ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
-    );
-  }
-
-  Future<void> validationOnClick() async {
+  Future<void> _validationOnClick() async {
     if (_formKey.currentState!.validate()) {
-      bool isGood = await UserService(null,null).loginUser(usernameController.text, passwordController.text);
+      bool isGood = await UserService.loginUser(usernameController.text, passwordController.text);
       if (!mounted) {
         return;
       }
       if (isGood) {
         Navigator.pushReplacementNamed(context, AppRoutes.homePage);
-        callingSnackBar(AppLocale.snackBarMessage.getString(context));
+        SnackBarHelper.buildSnackBar(AppLocale.snackBarMessage.getString(context),context);
       } else {
-        callingSnackBar(AppLocale.snackBarError.getString(context));
+        SnackBarHelper.buildSnackBar(AppLocale.snackBarError.getString(context),context);
       }
     }
   }
 
-  void togle() {
+  void _togle() {
     setState(() {
       _obscureText = !_obscureText;
     });
@@ -57,7 +52,7 @@ class _LogInState extends State<LogIn> {
 
   PreferredSizeWidget _buildAppBar() {
     return AppBar(
-      title: const Text('Todo Manager'),
+      title:  Text(AppLocale.loginTitleAppbar.getString(context)),
       centerTitle: true,
       elevation: 0,
       flexibleSpace: Container(
@@ -87,7 +82,7 @@ class _LogInState extends State<LogIn> {
             inputType: InputFieldEnums.passwordInput,
             obscureText: _obscureText,
             togleIcon: IconHelper.toglePassword,
-            onPressed: togle,
+            onPressed: _togle,
             controler: passwordController,
           ),
         ],
@@ -103,8 +98,8 @@ class _LogInState extends State<LogIn> {
         child: Column(
           children: [
             HeaderContainerWidget(
-              color1: ColorHelper.logInContainer1,
-              color2: ColorHelper.logInContainer2,
+              colorDarker: ColorHelper.logInContainer1,
+              colorLighter: ColorHelper.logInContainer2,
               icon: IconHelper.appIcon,
               iconColor: ColorHelper.logInContainerIcon,
               title: '',
@@ -119,7 +114,7 @@ class _LogInState extends State<LogIn> {
             ),
             ButtonItem(
               buttonTxt: AppLocale.logIn.getString(context),
-              onPressed: validationOnClick,
+              onPressed: _validationOnClick,
             ),
           ],
         ),

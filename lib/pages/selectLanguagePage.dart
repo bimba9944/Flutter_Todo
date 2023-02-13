@@ -46,8 +46,8 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
 
   Widget _buildHeader() {
     return HeaderContainerWidget(
-      color1: ColorHelper.logInContainer1,
-      color2: ColorHelper.logInContainer2,
+      colorDarker: ColorHelper.logInContainer1,
+      colorLighter: ColorHelper.logInContainer2,
       icon: IconHelper.appIcon,
       iconColor: ColorHelper.logInContainerIcon,
       title: AppLocale.selectLanguagePageTitle.getString(context),

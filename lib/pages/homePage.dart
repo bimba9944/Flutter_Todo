@@ -5,8 +5,9 @@ import 'dart:convert';
 import 'package:todo/helpers/colorHelper.dart';
 import 'package:todo/helpers/languages.dart';
 import 'package:todo/helpers/preferencesHelper.dart';
-import 'package:todo/helpers/taskHelper.dart';
-import 'package:todo/helpers/taskService.dart';
+import 'package:todo/models/enums/statusEnum.dart';
+import 'package:todo/models/taskHelper.dart';
+import 'package:todo/services/taskService.dart';
 import 'package:todo/widgets/dialogWidget.dart';
 import 'package:todo/widgets/drawerWidget.dart';
 import 'package:todo/widgets/taskTile.dart';
@@ -20,8 +21,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePage extends State<HomePage> {
   String? username = PreferencesHelper.getUsername();
-  late Color color1;
-  late Color color2;
+  late Color colorOpen;
+  late Color colorDone;
   List<Task> tasks = [];
   List<Task> finishedTasks = [];
 
@@ -33,8 +34,7 @@ class _HomePage extends State<HomePage> {
 
 
   Future<void> getTasks() async {
-    TaskService service = TaskService.create();
-    final response = await service.getTasks();
+    final response = await TaskService.create().getTasks();
     final parsed = jsonDecode(response.bodyString);
     tasks = [];
     finishedTasks = [];
@@ -47,11 +47,11 @@ class _HomePage extends State<HomePage> {
         status: singleTask['status'],
       );
 
-      if (task.status == 'OPEN') {
-        color1 = Colors.green;
+      if (task.status == StatusEnum.OPEN.name) {
+        colorOpen = Colors.green;
         tasks.add(task);
       } else {
-        color2 = Colors.red;
+        colorDone = Colors.red;
         finishedTasks.add(task);
       }
     }
@@ -60,12 +60,13 @@ class _HomePage extends State<HomePage> {
 
 
   Widget _buildSingleListTile(Task task) {
+    var checkForStatus = task.status == StatusEnum.OPEN.name ? colorOpen : colorDone;
     return TaskTile(
       title: task.title,
       subtitle: task.description,
       status: task.status,
-      colorOfText: task.status == 'OPEN' ? color1 : color2,
-      colorOfBorder: task.status == 'OPEN' ? color1 : color2,
+      colorOfText: checkForStatus,
+      colorOfBorder: checkForStatus,
       id: task.id,
     );
   }

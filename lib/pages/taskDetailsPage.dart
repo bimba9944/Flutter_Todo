@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:todo/helpers/appRoutes.dart';
+import 'package:todo/helpers/languages.dart';
 import 'package:todo/helpers/notificationService.dart';
+import 'package:todo/models/enums/statusEnum.dart';
 
-import 'package:todo/helpers/taskService.dart';
+import 'package:todo/services/taskService.dart';
 import 'package:todo/widgets/changeAndDeleteDialog.dart';
 import 'package:todo/widgets/taskTile.dart';
-
 
 class TaskDetails extends StatefulWidget {
   const TaskDetails({super.key});
@@ -15,20 +17,24 @@ class TaskDetails extends StatefulWidget {
 }
 
 class _TaskDetailsState extends State<TaskDetails> {
-  Future<bool> changeStatus( String id,String status) async {
+  void _successfullOperation(String message) {
+    if (mounted) {
+      Navigator.pop(context);
+      Navigator.pushReplacementNamed(context, AppRoutes.homePage);
+      NotificationService().showNotification(title: 'Notification', body: message);
+    }
+  }
+
+  Future<bool> changeStatus(String id, String status) async {
     try {
-      if (status == 'OPEN') {
-        status = 'DONE';
+      if (status == StatusEnum.OPEN.name) {
+        status = StatusEnum.DONE.name;
       } else {
-        status = 'OPEN';
+        status = StatusEnum.OPEN.name;
       }
       TaskService service = TaskService.create();
       final response = await service.patchPost({"status": status}, id);
-      if (mounted) {
-        Navigator.pop(context);
-        Navigator.pushReplacementNamed(context, AppRoutes.homePage);
-        NotificationService().showNotification(title: 'Notification',body: 'Status changed successfully');
-      }
+      _successfullOperation('Succesfully changed status');
       return response.statusCode == 201;
     } catch (e) {
       return false;
@@ -39,23 +45,35 @@ class _TaskDetailsState extends State<TaskDetails> {
     try {
       TaskService service = TaskService.create();
       final response = await service.deleteTask(id);
-      if (mounted) {
-        Navigator.pop(context);
-        Navigator.pushReplacementNamed(context, AppRoutes.homePage);
-        NotificationService().showNotification(title: 'Notification',body: 'Task deleted successfully');
-      }
+      _successfullOperation('Task deleted successfully');
       return response.statusCode == 201;
     } catch (e) {
       return false;
     }
   }
 
+  Future<String?> _showDialog(){
+    final args = ModalRoute.of(context)!.settings.arguments as TaskTile;
+    return showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => ChangeAndDeleteDialog(
+        title: AppLocale.allertConfirmChangeTitle.getString(context),
+        subtitle: AppLocale.allertConfirmChange.getString(context),
+        id: args.id,
+        status: args.status,
+        func: changeStatus,
+        isDelete: false,
+      ),
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as TaskTile;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Task details'),
+        title: Text(AppLocale.taskDetailsTitleAppbar.getString(context)),
         backgroundColor: Colors.deepOrangeAccent,
       ),
       body: Column(
@@ -88,17 +106,7 @@ class _TaskDetailsState extends State<TaskDetails> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ElevatedButton(
-                  onPressed: () => showDialog<String>(
-                    context: context,
-                    builder: (BuildContext context) => ChangeAndDeleteDialog(
-                      title: 'Mark as done?',
-                      subtitle: 'You are about to change status of task. Are you sure you want to continue?',
-                      id: args.id,
-                      status: args.status,
-                      func: changeStatus,
-                      isDelete: false,
-                    ),
-                  ),
+                  onPressed: () => _showDialog(),
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
                   child: const Text('Change status', style: TextStyle(color: Colors.white)),
                 ),
@@ -106,8 +114,8 @@ class _TaskDetailsState extends State<TaskDetails> {
                   onPressed: () => showDialog<String>(
                     context: context,
                     builder: (BuildContext context) => ChangeAndDeleteDialog(
-                      title: 'Delete task?',
-                      subtitle: 'You are about to delete this task. Are you sure you want to continue?',
+                      title: AppLocale.allertConfirmDeleteTitle.getString(context),
+                      subtitle: AppLocale.allertConfirmDelete.getString(context),
                       id: args.id,
                       status: args.status,
                       func: deleteTask,

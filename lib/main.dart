@@ -6,13 +6,13 @@ import 'package:todo/helpers/notificationService.dart';
 import 'package:todo/helpers/preferencesHelper.dart';
 import 'package:todo/pages/homePage.dart';
 import 'package:todo/pages/selectLanguagePage.dart';
-import 'package:todo/pages/signUp.dart';
+import 'package:todo/pages/register.dart';
 import 'package:todo/pages/logIn.dart';
 import 'package:todo/pages/splashPage.dart';
 import 'package:todo/pages/taskDetailsPage.dart';
 
-import 'helpers/appRoutes.dart';
-import 'helpers/languageHelper.dart';
+import 'package:todo/helpers/appRoutes.dart';
+import 'package:todo/helpers/languageHelper.dart';
 
 
 
@@ -65,7 +65,7 @@ class _MyAppState extends State<MyApp> {
       ),
       routes: {
         AppRoutes.defaultRoute: (context) => SplashPage(),
-        AppRoutes.signUp : (context) => SignUp(),
+        AppRoutes.register : (context) => Register(),
         AppRoutes.logIn: (context) => LogIn(),
         AppRoutes.homePage: (context) => HomePage(),
         AppRoutes.taskDetails: (context) => TaskDetails(),

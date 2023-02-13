@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:jwt_decode/jwt_decode.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:todo/helpers/appRoutes.dart';
 import 'package:todo/helpers/preferencesHelper.dart';
 
@@ -20,13 +21,35 @@ class _SplashPageState extends State<SplashPage> {
     super.initState();
   }
 
+  Future<void> permissionHandler() async {
+    PermissionStatus status = await Permission.notification.status;
+    if(status.isDenied){
+      status = await Permission.notification.request();
+    }
+    if(await Permission.notification.isRestricted){
+
+    }
+    if(await Permission.notification.request().isGranted){
+
+    }
+  }
+
+  void _navigateToRegister(){
+    Navigator.pushReplacementNamed(context, AppRoutes.register);
+  }
+
+  void _navigateToHome(){
+    Navigator.pushReplacementNamed(context, AppRoutes.homePage);
+  }
+
   void changePage(){
     String? token = PreferencesHelper.getAccessToken();
+    permissionHandler();
     if(token == null || Jwt.isExpired(token)){
-      Navigator.pushReplacementNamed(context, AppRoutes.signUp);
+      _navigateToRegister();
     }
     else{
-      Navigator.pushReplacementNamed(context, AppRoutes.homePage);
+      _navigateToHome();
     }
     }
 

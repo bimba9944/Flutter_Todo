@@ -9,25 +9,35 @@ class TaskTile extends StatelessWidget {
   final Color colorOfBorder;
   final String id;
 
-  const TaskTile(
-      {required this.title,
-      required this.subtitle,
-      required this.status,
-      required this.colorOfText,
-      required this.colorOfBorder,
-      required this.id});
+  const TaskTile({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.status,
+    required this.colorOfText,
+    required this.colorOfBorder,
+    required this.id,
+  });
+
+  void _navigateToTaskDetails(BuildContext context) {
+    Navigator.pushNamed(
+      context,
+      AppRoutes.taskDetails,
+      arguments: TaskTile(
+        title: title,
+        subtitle: subtitle,
+        status: status,
+        colorOfText: colorOfText,
+        colorOfBorder: colorOfBorder,
+        id: id,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, AppRoutes.taskDetails,
-          arguments: TaskTile(
-              title: title,
-              subtitle: subtitle,
-              status: status,
-              colorOfText: colorOfText,
-              colorOfBorder: colorOfBorder,
-              id: id)),
+      onTap: () => _navigateToTaskDetails(context),
       child: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(colors: [Color.fromRGBO(249, 210, 157, 1), Color.fromRGBO(255, 216, 203, 1)]),
@@ -66,7 +76,7 @@ class TaskTile extends StatelessWidget {
                   child: ListTile(
                     contentPadding: const EdgeInsets.only(left: 8, top: 3, bottom: 3),
                     title: Text(title),
-                    subtitle: Text(subtitle,maxLines: 1),
+                    subtitle: Text(subtitle, maxLines: 1),
                     //isThreeLine: true,
                   ),
                 ),

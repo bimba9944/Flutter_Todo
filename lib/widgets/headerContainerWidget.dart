@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 class HeaderContainerWidget extends StatelessWidget {
-  final Color color1;
-  final Color color2;
+  final Color colorDarker;
+  final Color colorLighter;
   final IconData icon;
   final Color iconColor;
   final String? title;
   final double contHeight;
 
   const HeaderContainerWidget(
-      {super.key, required this.color1, required this.color2, required this.icon, required this.iconColor, this.title, required this.contHeight});
+      {super.key, required this.colorDarker, required this.colorLighter, required this.icon, required this.iconColor, this.title, required this.contHeight});
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +25,8 @@ class HeaderContainerWidget extends StatelessWidget {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            color1,
-            color2
+            colorDarker,
+            colorLighter
           ],
         ),
       ),

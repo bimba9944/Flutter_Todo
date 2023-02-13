@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localization/flutter_localization.dart';
+import 'package:todo/helpers/languages.dart';
 
 class ChangeAndDeleteDialog extends StatefulWidget {
   final String title;
@@ -23,6 +25,26 @@ class ChangeAndDeleteDialog extends StatefulWidget {
 }
 
 class _ChangeAndDeleteDialogState extends State<ChangeAndDeleteDialog> {
+
+  Widget _buildActions(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child:  Text(AppLocale.allertButtonNo.getString(context), style: const TextStyle(color: Colors.deepOrangeAccent)),
+        ),
+        TextButton(
+          onPressed: () async =>
+          await widget.isDelete == false ? widget.func(widget.id, widget.status) : widget.func(widget.id),
+          child: Text(AppLocale.allertButtonYes.getString(context), style: const TextStyle(color: Colors.deepOrangeAccent)),
+        ),
+      ],
+    );
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -38,22 +60,7 @@ class _ChangeAndDeleteDialogState extends State<ChangeAndDeleteDialog> {
           ),
         ],
       ),
-      actions: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('No', style: TextStyle(color: Colors.deepOrangeAccent)),
-            ),
-            TextButton(
-              onPressed: () async =>
-                  await widget.isDelete == false ? widget.func(widget.id, widget.status) : widget.func(widget.id),
-              child: const Text('Yes', style: TextStyle(color: Colors.deepOrangeAccent)),
-            ),
-          ],
-        ),
-      ],
+      actions: [_buildActions()],
     );
   }
 }

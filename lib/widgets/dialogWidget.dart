@@ -3,7 +3,7 @@ import 'package:flutter_localization/flutter_localization.dart';
 import 'package:todo/helpers/languages.dart';
 import 'package:todo/helpers/notificationService.dart';
 
-import 'package:todo/helpers/taskService.dart';
+import 'package:todo/services/taskService.dart';
 
 class DialogWidget extends StatefulWidget {
   final Function displayTasks;
@@ -18,7 +18,7 @@ class _DialogWidgetState extends State<DialogWidget> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
-  Widget inputField(String hintTxt, int numLines, TextEditingController controler) {
+  Widget _buildSingleInputField(String hintTxt, int numLines, TextEditingController controler) {
     return TextFormField(
       controller: controler,
       decoration: InputDecoration(
@@ -48,6 +48,24 @@ class _DialogWidgetState extends State<DialogWidget> {
     }
   }
 
+  Widget _buildActions(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        ElevatedButton(
+          onPressed: () => postTask(titleController.text, descriptionController.text),
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+          child: Text(AppLocale.dialogAddTask.getString(context), style: const TextStyle(color: Colors.white)),
+        ),
+        ElevatedButton(
+          onPressed: () => Navigator.pop(context, 'Cancel'),
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+          child: Text(AppLocale.dialogCancel.getString(context), style: const TextStyle(color: Colors.white)),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -55,31 +73,15 @@ class _DialogWidgetState extends State<DialogWidget> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            inputField(AppLocale.dialogTitle.getString(context), 1, titleController),
+            _buildSingleInputField(AppLocale.dialogTitle.getString(context), 1, titleController),
             const SizedBox(
               height: 10,
             ),
-            inputField(AppLocale.dialogDescription.getString(context), 6, descriptionController),
+            _buildSingleInputField(AppLocale.dialogDescription.getString(context), 6, descriptionController),
           ],
         ),
       ),
-      actions: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            ElevatedButton(
-              onPressed: () => postTask(titleController.text, descriptionController.text),
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-              child: Text(AppLocale.dialogAddTask.getString(context), style: const TextStyle(color: Colors.white)),
-            ),
-            ElevatedButton(
-              onPressed: () => Navigator.pop(context, 'Cancel'),
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-              child: Text(AppLocale.dialogCancel.getString(context), style: const TextStyle(color: Colors.white)),
-            ),
-          ],
-        )
-      ],
+      actions: [_buildActions()],
     );
   }
 }

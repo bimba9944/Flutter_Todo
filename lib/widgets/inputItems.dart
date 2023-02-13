@@ -30,20 +30,20 @@ class InputItems extends StatefulWidget {
 }
 
 class _InputItemsState extends State<InputItems> {
-  bool isValidUsername(String value) {
+  bool _isValidUsername(String value) {
     return RegExpHelper.usernameRegEx.hasMatch(value);
   }
 
-  bool isValidPassword(String value) {
+  bool _isValidPassword(String value) {
     return RegExpHelper.passwordRegEx.hasMatch(value);
   }
 
-  String? validator(value){
+  String? _validator(value){
     String? validatorResult;
-    if (widget.inputType == InputFieldEnums.usernameInput && !isValidUsername(value!)) {
+    if (widget.inputType == InputFieldEnums.usernameInput && !_isValidUsername(value!)) {
       validatorResult = AppLocale.snackBarError.getString(context);
     }
-    else if (widget.inputType == InputFieldEnums.passwordInput && !isValidPassword(value!)) {
+    else if (widget.inputType == InputFieldEnums.passwordInput && !_isValidPassword(value!)) {
       validatorResult = AppLocale.snackBarError.getString(context);
     }
     return validatorResult;
@@ -67,7 +67,7 @@ class _InputItemsState extends State<InputItems> {
       child: TextFormField(
       obscureText: widget.obscureText,
       controller: widget.controler,
-      validator: validator,
+      validator: _validator,
       decoration: InputDecoration(
         prefixIcon: Icon(
           widget.inputIcon,

@@ -3,12 +3,12 @@ import 'package:flutter_localization/flutter_localization.dart';
 
 import 'package:todo/helpers/appRoutes.dart';
 
-
+import 'package:todo/helpers/snackBarHelper.dart';
 import 'package:todo/helpers/iconHelper.dart';
 import 'package:todo/helpers/languageHelper.dart';
 import 'package:todo/helpers/languages.dart';
 import 'package:todo/helpers/preferencesHelper.dart';
-import 'package:todo/helpers/userService.dart';
+import 'package:todo/services/userService.dart';
 import 'package:todo/models/enums/inputFieldEnums.dart';
 import 'package:todo/models/language.dart';
 import 'package:todo/widgets/headerContainerWidget.dart';
@@ -16,14 +16,14 @@ import 'package:todo/widgets/inputItems.dart';
 import 'package:todo/widgets/buttonItem.dart';
 import 'package:todo/helpers/colorHelper.dart';
 
-class SignUp extends StatefulWidget {
-  const SignUp({Key? key}) : super(key: key);
+class Register extends StatefulWidget {
+  const Register({Key? key}) : super(key: key);
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _SignUpState extends State<SignUp> {
+class _RegisterState extends State<Register> {
   List<Language> listOfLanguages = LanguageHelper.languages;
   Language? dropdownValue;
   final FlutterLocalization _localization = FlutterLocalization.instance;
@@ -58,27 +58,23 @@ class _SignUpState extends State<SignUp> {
     Navigator.pushNamed(context, AppRoutes.logIn);
   }
 
-  ScaffoldFeatureController<SnackBar, SnackBarClosedReason> callingSnackBar(String message) {
-    return ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
-    );
-  }
 
   Future<void> validationOnClick() async {
-    if (_formKey.currentState!.validate()) {
-      bool isGood = await UserService(passwordController,repeatPasswordController).registerUser(usernameController.text, passwordController.text);
+    if (_formKey.currentState!.validate() && passwordController.text.contains(repeatPasswordController.text)) {
+      bool isGood = await UserService.registerUser(usernameController.text, passwordController.text);
       if (!mounted) {
         return;
       }
       if (isGood) {
         _changePage();
-      } else {
-        callingSnackBar(AppLocale.snackBarError);
+      }
+      else {
+        SnackBarHelper.buildSnackBar(AppLocale.snackBarError,context);
       }
     }
   }
 
-  void togle() {
+  void _hideOrShowPassword() {
     setState(() {
       _obscureText = !_obscureText;
     });
@@ -101,7 +97,7 @@ class _SignUpState extends State<SignUp> {
             inputType: InputFieldEnums.passwordInput,
             obscureText: _obscureText,
             togleIcon: IconHelper.toglePassword,
-            onPressed: togle,
+            onPressed: _hideOrShowPassword,
             controler: passwordController,
           ),
           InputItems(
@@ -110,7 +106,7 @@ class _SignUpState extends State<SignUp> {
             inputType: InputFieldEnums.passwordInput,
             obscureText: _obscureText,
             togleIcon: IconHelper.toglePassword,
-            onPressed: togle,
+            onPressed: _hideOrShowPassword,
             controler: repeatPasswordController,
           ),
         ],
@@ -157,8 +153,8 @@ class _SignUpState extends State<SignUp> {
         child: Column(
           children: [
             HeaderContainerWidget(
-                color1: ColorHelper.signUpContainer1,
-                color2: ColorHelper.signUpContainer2,
+                colorDarker: ColorHelper.signUpContainer1,
+                colorLighter: ColorHelper.signUpContainer2,
                 icon: IconHelper.appIcon,
                 iconColor: ColorHelper.signUpContainerIcon,
                 title: 'Todo Manager', contHeight: 0.27,),

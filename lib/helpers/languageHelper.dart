@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
+import 'package:todo/helpers/i18n/english.dart';
+import 'package:todo/helpers/i18n/japanese.dart';
 import 'package:todo/models/language.dart';
 
-import 'languages.dart';
+import 'package:todo/helpers/i18n/chinese.dart';
 
 class LanguageHelper{
 
@@ -17,9 +19,9 @@ class LanguageHelper{
   ];
 
   static List<MapLocale> mapOfLanguages = [
-  const MapLocale('en', AppLocale.EN),
-  const MapLocale('km', AppLocale.KM),
-  const MapLocale('ja', AppLocale.JA),
+  const MapLocale('en', English.EN),
+  const MapLocale('km', Chinese.KM),
+  const MapLocale('ja', Japanese.JA),
   ];
 
 }
