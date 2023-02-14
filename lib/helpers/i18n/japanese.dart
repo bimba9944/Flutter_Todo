@@ -1,0 +1,37 @@
+import 'package:todo/helpers/languages.dart';
+
+class Japanese{
+  static const Map<String, dynamic> JA = {
+    AppLocale.title: 'する',
+    AppLocale.text: 'やる事！',
+    AppLocale.changeLanguage: '言語を変更',
+    AppLocale.changeTheme: 'テーマを変更',
+    AppLocale.logOut: 'ログアウト',
+    AppLocale.password:'パスワード',
+    AppLocale.repeatPassword:'パスワードを再度入力してください',
+    AppLocale.register:'登録',
+    AppLocale.alreadyAMember:'すでに会員',
+    AppLocale.logIn:'ログインする',
+    AppLocale.username:'ユーザー名または電子メール',
+    AppLocale.snackBarMessage:'正常にログインしました',
+    AppLocale.snackBarError:'無効なデータ!',
+    AppLocale.tabBarOpen:'開ける',
+    AppLocale.tabBarDone:'完毕',
+    AppLocale.dialogTitle:'タイトル',
+    AppLocale.dialogDescription:'説明',
+    AppLocale.dialogAddTask:'タスクを追加',
+    AppLocale.dialogCancel:'キャンセル',
+    AppLocale.selectLanguagePageTitle:'言語を選択',
+    AppLocale.selectLanguageEnglish:'英語',
+    AppLocale.selectLanguageChinese:'中国語',
+    AppLocale.selectLanguageJapanese:'日本',
+    AppLocale.taskDetailsTitleAppbar: 'タスクの詳細',
+    AppLocale.allertConfirmChangeTitle:'完了としてマークする？',
+    AppLocale.allertConfirmChange:'タスクのステータスを変更しようとしています。 続行してもよろしいですか？',
+    AppLocale.allertConfirmDeleteTitle:'タスクを削除しますか?',
+    AppLocale.allertConfirmDelete:'このタスクを削除しようとしています。 続行してもよろしいですか？',
+    AppLocale.allertButtonNo:'いいえ',
+    AppLocale.allertButtonYes:'はい',
+    AppLocale.loginTitleAppbar:AppLocale.loginTitleAppbar,
+  };
+}
